@@ -1,0 +1,82 @@
+
+/* SHOCKER OWNZ FORGE STUDIO 2026 - reference-driven V5 */
+:root{--v5-red:#ff244e;--v5-ink:#050609;--v5-border:#9c1733}
+html,body{background:#050507!important}
+body{background-image:linear-gradient(135deg,#1b030b,#050507 36%)!important}
+.ownz-brand-header{height:83px!important;min-height:83px!important;padding:7px 12px!important;box-sizing:border-box!important;background:linear-gradient(90deg,#050406 5%,#23000b 60%,#080408)!important;border:1px solid #bd163a!important;box-shadow:inset 0 0 0 1px #2c0914,0 0 18px #9d062e88!important}
+.ownz-brand-logo{width:58px!important;height:58px!important;box-shadow:0 0 12px #f9184c99!important}
+.ownz-brand-name{font-size:clamp(22px,3vw,34px)!important;font-weight:950!important;font-style:italic!important;letter-spacing:-1px!important;text-shadow:2px 3px 0 #080508,0 0 12px #ff174877!important}
+.ownz-brand-studio{font-size:10px!important;letter-spacing:1.5px!important;color:#fa3c60!important}
+.ownz-brand-tagline{font-size:9px!important;letter-spacing:1.4px!important}
+main{padding:0!important;max-width:none!important}
+.ownz-v4-shell{max-width:1600px!important;margin:auto!important;gap:0!important}
+.ownz-v4-content{min-width:0!important;padding:0!important}
+.ownz-v4-dashboard{padding:9px!important;gap:9px!important}
+.ownz-v4-heading{display:none!important}
+.ownz-v4-hero{position:relative!important;min-height:220px!important;display:flex!important;align-items:end!important;justify-content:flex-end!important;padding:12px!important;box-sizing:border-box!important;overflow:hidden!important;border:1px solid #f3214b!important;border-radius:4px!important;background:linear-gradient(90deg,transparent 0%,#060308 60%,#060308 100%),url('/forge-studio-v5/mask.webp') left center/auto 100% no-repeat!important;box-shadow:inset 0 0 20px #e6002930,0 0 10px #dd103044!important}
+.ownz-v4-hero:before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 5px,#ff002407 6px 7px);opacity:.7}
+.ownz-v4-hero-text{position:relative!important;z-index:1!important;width:55%!important;max-width:none!important;padding:0!important;text-align:left!important}
+.ownz-v4-hero-text .ownz-v4-kicker{font-size:17px!important;font-weight:950!important;font-style:italic!important;line-height:1!important;color:#f82651!important}
+.ownz-v4-hero-text h2{font-size:clamp(18px,5vw,30px)!important;line-height:1.08!important;color:#fff!important;text-shadow:1px 2px #000!important;margin:4px 0!important}
+.ownz-v4-hero-text p{font-size:9px!important;letter-spacing:.3px!important}
+.ownz-v4-hero-text .ownz-v4-button{width:100%!important;min-height:39px!important;font-size:10px!important;margin-top:8px!important}
+.ownz-v4-cards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+.ownz-v4-card{margin:0!important;padding:10px!important;min-width:0!important;border:1px solid #92203b!important;border-radius:4px!important;background:linear-gradient(140deg,#19070e,#09080c 65%)!important;box-shadow:inset 0 0 0 1px #320c18,0 0 8px #f31c2a20!important}
+.ownz-v4-card h3{font-size:12px!important;line-height:1.2!important;letter-spacing:.4px!important;color:#ff3159!important;margin:0 0 8px!important;border-bottom:1px solid #5e1b2e!important;padding-bottom:7px!important}
+.ownz-v4-card p{font-size:11px!important}
+.ownz-v4-project-list{display:flex!important;flex-direction:column!important;gap:0!important}
+.ownz-v4-project{display:flex!important;align-items:center!important;justify-content:flex-start!important;min-height:34px!important;padding:6px!important;border:0!important;border-bottom:1px solid #49212c!important;border-radius:0!important;background:transparent!important;text-align:left!important;box-shadow:none!important}
+.ownz-v4-project .ownz-v4-label{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:10px!important}
+.ownz-v4-project .ownz-v4-icon{font-size:15px!important;color:#ffb443!important}
+.ownz-v4-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important}
+.ownz-v4-actions .ownz-v4-button{display:flex!important;flex-direction:column!important;gap:5px!important;min-width:0!important;min-height:62px!important;padding:6px 2px!important;border:1px solid #7e213a!important;border-radius:5px!important;background:linear-gradient(145deg,#250711,#09080d)!important}
+.ownz-v4-actions .ownz-v4-icon{font-size:22px!important;color:#ff3159!important;text-shadow:0 0 10px #ff174866!important}
+.ownz-v4-actions .ownz-v4-label{font-size:9px!important}
+.ownz-v4-ai-card{grid-column:span 2!important}
+.ownz-v4-ai-card .ownz-v4-button{min-height:37px!important}
+.ownz-v4-button{box-shadow:inset 0 0 0 1px #ff23510e!important;letter-spacing:0!important}
+.ownz-v4-button:focus-visible,.ownz-v4-tool:focus-visible{outline:2px solid #ff6483!important;outline-offset:2px!important}
+.ownz-v4-footer{font-size:9px!important;color:#9d6679!important}
+.ownz-v4-bottom{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:0!important;align-items:stretch!important;padding:0!important;min-height:69px!important;max-height:69px!important;overflow:hidden!important;background:#090509!important;border-top:2px solid #c31840!important}
+.ownz-v4-bottom .ownz-v4-button{min-width:0!important;width:100%!important;min-height:64px!important;padding:5px 1px!important;gap:4px!important;border-radius:0!important;border-right:1px solid #471525!important;border-top:0!important;border-bottom:0!important;background:linear-gradient(180deg,#1b0812,#080609)!important;flex-direction:column!important;justify-content:center!important}
+.ownz-v4-bottom .ownz-v4-icon{font-size:20px!important;color:#ff2c53!important;line-height:1!important}
+.ownz-v4-bottom .ownz-v4-label{font-size:10px!important;line-height:1!important}
+.ownz-v4-bottom .ownz-selected{background:linear-gradient(180deg,#790c2b,#2a0713)!important;box-shadow:inset 0 0 14px #ff214a70!important}
+.ownz-v4-bottom .ownz-selected .ownz-v4-icon{color:#fff!important}
+.ownz-v4-bottom .ownz-v4-button:last-child{display:flex!important}
+.workspace{gap:8px!important;padding:7px!important;min-width:0!important}
+.workspace .panel{border:1px solid #9e203b!important;border-radius:5px!important;background:#08080d!important;box-shadow:inset 0 0 0 1px #3b0b1b!important}
+.panel-title{padding:10px!important;background:linear-gradient(90deg,#3b0919,#0a080d)!important;color:#ff3258!important;border-bottom:1px solid #b0193b!important;font-size:12px!important}
+#forge-create-actions{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important;padding:7px!important;margin:0!important}
+#forge-create-actions button{min-width:0!important;min-height:55px!important;padding:5px 1px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;border-radius:4px!important;border:1px solid #91213c!important;background:#14080e!important;box-shadow:inset 0 0 9px #a90a2524!important}
+#forge-create-actions .ownz-v4-icon,#forge-create-actions .ownz-action-icon{font-size:19px!important;color:#ff3159!important}
+#forge-create-actions .ownz-v4-label,#forge-create-actions .ownz-action-label{font-size:9px!important;line-height:1.1!important}
+#forge-trash-panel{border:1px solid #782038!important;border-radius:4px!important;margin:5px!important}
+#tree{background:#07080b!important;border:1px solid #562033!important;border-radius:3px!important;max-height:55vh!important}
+#tree .tree-item{min-height:36px!important;border-bottom:1px solid #381822!important;font-size:12px!important}
+#ownz-v4-editor-actions{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:4px!important;padding:6px!important;scrollbar-width:thin!important}
+#ownz-v4-editor-actions .ownz-v4-tool{flex:0 0 auto!important;min-height:38px!important;min-width:55px!important;padding:5px 9px!important;border-radius:4px!important;background:#180b12!important;border:1px solid #77203a!important;display:flex!important;gap:5px!important;align-items:center!important;justify-content:center!important}
+#ownz-v4-editor-actions .ownz-v4-tool-icon{font-size:15px!important;color:#ff3459!important}
+#ownz-v4-editor-actions .ownz-v4-tool-label{font-size:10px!important}
+#forge-tabs{min-height:38px!important;background:#0a080d!important}
+.forge-tab{font-size:11px!important;padding:7px!important;border-radius:4px 4px 0 0!important}
+#editor{min-height:55vh!important;border:1px solid #3c1526!important;background:#080a10!important}
+.cm-editor{min-height:55vh!important;background:#080a10!important}
+#forge-mobile-toolbar{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:4px!important;min-height:43px!important;padding:4px!important;background:#0c0910!important}
+#forge-mobile-toolbar button{flex:0 0 auto!important;min-width:41px!important;min-height:34px!important;padding:4px 7px!important;font-size:11px!important}
+body.ownz-v4-home .workspace{display:none!important}
+@media(max-width:749px){
+ .ownz-v4-shell{display:block!important}
+ .ownz-v4-sidebar{display:none!important}
+ .ownz-v4-dashboard{padding:7px!important}
+ .ownz-v4-hero{min-height:207px!important}
+ .ownz-v4-card{padding:8px!important}
+ .ownz-v4-hero-text .ownz-v4-kicker{font-size:14px!important}
+ .ownz-v4-hero-text h2{font-size:18px!important}
+ .ownz-v4-hero-text p{font-size:8px!important}
+ .ownz-v4-project-list .ownz-v4-project:nth-child(n+4){display:none!important}
+ .ownz-v4-card>.ownz-v4-button{min-height:34px!important;font-size:9px!important;padding:5px!important}
+ .ownz-v4-card>.ownz-v4-button .ownz-v4-icon{font-size:14px!important}
+ #editor,.cm-editor{min-height:58vh!important}
+}
+@media(max-width:370px){.ownz-v4-hero{min-height:184px!important}.ownz-v4-hero-text{width:58%!important}.ownz-v4-actions .ownz-v4-label{font-size:8px!important}}

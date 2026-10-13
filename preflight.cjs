@@ -1,0 +1,9 @@
+const fs=require('node:fs'),crypto=require('node:crypto'),path=require('node:path');
+const home=process.env.HOME;const live=path.join(home,'ownz-forge');
+const paths=['server.js','ai-api.js','vite.config.mjs','editor/src/main.js','editor/src/owner-session.js','editor/ownz-terminal-ui.js','editor/ownz-terminal-v8.js','editor/ownz-installer-v2.js','terminal-forge/terminal-server.cjs','terminal-forge/v8-server.cjs','installer-forge/recovery-dashboard.cjs','installer-forge/recovery-dashboard.js','installer-forge/recovery-dashboard.html','installer-forge/recovery-dashboard.css','installer-forge/recovery-center.cjs','owner-auth.cjs','owner-api.cjs'];
+const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const records=paths.map(p=>{const l=path.join(live,p),s=path.join(__dirname,p);const exists=fs.existsSync(l),candidate=fs.existsSync(s);return {file:p,live:exists?'present':'missing',candidate:candidate?'present':'missing',same:exists&&candidate?sha(l)===sha(s):null,live_sha256:exists?sha(l):null,candidate_sha256:candidate?sha(s):null}});
+const report={version:'19',mode:'read-only',activation:'disabled',source_root:live,records,conflicts:records.filter(x=>x.live==='present'&&x.candidate==='present'&&!x.same).map(x=>x.file),missing_candidate:records.filter(x=>x.candidate==='missing').map(x=>x.file)};
+const reportFile=path.join(__dirname,'ownz-v19-conflict-report.json');fs.writeFileSync(reportFile,JSON.stringify(report,null,2));
+console.log('--- LIVE VS CANDIDATE HASH COMPARISON ---');for(const r of records)console.log(`${r.file}: live=${r.live}, candidate=${r.candidate}, ${r.same===null?'not comparable':r.same?'MATCH':'DIFFERENT'}`);
+console.log('CONFLICTS:',report.conflicts.length,'(will NOT overwrite)');console.log('MISSING CANDIDATE:',report.missing_candidate.length);console.log('ACTIVATION: DISABLED; no live writes');console.log('Report:',reportFile);

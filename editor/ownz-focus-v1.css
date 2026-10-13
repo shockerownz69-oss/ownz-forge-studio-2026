@@ -1,0 +1,10 @@
+/* OWNZ Forge Focus Mode: Android compact coding workspace */
+@media(max-width:749px){
+ #ownz-workspace-nav{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+ #ownz-workspace-nav button{font-size:12px!important}
+ #ownz-focus-toggle[aria-pressed="true"]{background:#a32222!important}
+ body.ownz-focus-active .ownz-focus-explorer{display:none!important}
+ body.ownz-focus-active #ownz-ai-panel{display:none!important}
+ body.ownz-focus-active #editor{scroll-margin-top:12px}
+}
+@media(min-width:750px){#ownz-focus-toggle{display:none!important}}

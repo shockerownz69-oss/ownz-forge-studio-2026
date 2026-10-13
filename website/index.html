@@ -1,0 +1,1442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090607">
+<meta name="description" content="Shocker OwnZ — Games, downloads, member rankings and the OWNZ Forge ecosystem.">
+<title>Shocker OwnZ | Built Like You Own The Show</title>
+<style>
+:root{color-scheme:dark;--red:#f43b40;--bg:#090607;--panel:#171012;--line:#653034}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#491116 0%,#160b0e 36%,var(--bg) 76%);color:#f6eeee;font-family:Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+button,a{touch-action:manipulation}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px max(18px,calc((100vw - 1250px)/2));background:#0c080aee;border-bottom:2px solid #a62630;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:62px;height:62px;object-fit:cover;border:1px solid #b33138;border-radius:12px;box-shadow:0 0 18px #c51f3444}
+.brand strong{display:block;font-size:clamp(17px,3vw,25px);letter-spacing:2px}
+.brand strong span{color:var(--red)}
+.brand small{display:block;color:#c5a3a6;font-size:9px;letter-spacing:1.5px;margin-top:4px}
+nav{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+nav a,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 15px;border:1px solid #78353a;border-radius:7px;background:linear-gradient(#302024,#190f12);font-size:12px;font-weight:bold;letter-spacing:1px}
+nav a:hover,.btn:hover{border-color:#ff575e;background:#5b1b23}
+.btn.primary{background:linear-gradient(135deg,#df2936,#79121e);border-color:#fa4c55}
+main{max-width:1250px;margin:auto;padding:20px}
+.hero{position:relative;overflow:hidden;min-height:360px;display:flex;align-items:center;padding:clamp(25px,6vw,75px);border:1px solid #91313c;border-radius:15px;background:radial-gradient(circle at 85% 45%,#9b172744,transparent 38%),repeating-linear-gradient(130deg,transparent 0 23px,#ff334408 24px 25px),linear-gradient(120deg,#250d13,#10090c);box-shadow:inset 0 0 75px #000,0 18px 55px #0009}
+.hero:after{content:"";position:absolute;right:-85px;top:-120px;width:370px;height:370px;border:2px solid #ef334438;border-radius:50%;box-shadow:0 0 0 35px #ed243012,0 0 0 85px #ed24300a,0 0 85px #e3203530;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:750px}
+.eyebrow{color:#ff777d;letter-spacing:3px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(37px,7vw,78px);line-height:1.04;letter-spacing:2px;margin:18px 0;text-shadow:0 4px 30px #000}
+h1 span{color:#ff444e}
+.hero p{color:#d5b9bc;max-width:600px;line-height:1.7}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.section-head{margin:42px 0 20px;border-left:4px solid var(--red);padding-left:14px}
+.section-head h2{margin:0;font-size:24px;letter-spacing:2px}
+.section-head p{margin:7px 0 0;color:#bda5a8}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{position:relative;min-height:210px;padding:25px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(155deg,#30191e,#140e11 75%);box-shadow:inset 0 1px #ffffff0a,0 12px 25px #0006}
+.card:before{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,#ee3643,transparent)}
+.card .symbol{font-size:34px}
+.card h3{margin:18px 0 10px;letter-spacing:1.5px}
+.card p{color:#c2a9ad;font-size:14px;line-height:1.6}
+.tag{display:inline-block;padding:6px 9px;border:1px solid #9c3b43;border-radius:4px;color:#ff777d;font-size:10px;letter-spacing:1px}
+footer{margin-top:55px;padding:25px;text-align:center;border-top:1px solid #6a2931;color:#a88b90;font-size:12px;letter-spacing:1px}
+@media(max-width:800px){.topbar{flex-direction:column;align-items:stretch}.brand{justify-content:center}nav{justify-content:center}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){main{padding:12px}.cards{grid-template-columns:1fr}.hero{min-height:330px;padding:25px}.brand img{width:52px;height:52px}nav a{font-size:10px;padding:9px}.section-head h2{font-size:20px}}
+</style>
+
+<style id="ownz-cinematic-upgrade">
+/* SHOCKER OWNZ — CINEMATIC MOBILE UPGRADE */
+.topbar{
+  background:linear-gradient(180deg,#10090d,#090608f5);
+  box-shadow:0 8px 35px #000a;
+}
+.brand img{
+  box-shadow:0 0 24px #ff253b66;
+}
+.hero{
+  isolation:isolate;
+  min-height:450px;
+  background:
+    radial-gradient(circle at 75% 28%,#bc172d55,transparent 45%),
+    repeating-linear-gradient(135deg,transparent 0 30px,#ff334407 31px 32px),
+    linear-gradient(125deg,#290c14,#090609 80%);
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:url("assets/images/logo-mask.png") no-repeat 88% center;
+  background-size:auto 85%;
+  opacity:.24;
+  filter:drop-shadow(0 0 30px #ed233a);
+  pointer-events:none;
+}
+.hero h1{
+  text-shadow:0 3px 24px #000,0 0 30px #e2213620;
+}
+@media(max-width:800px){
+  .topbar{gap:10px;padding:12px}
+  nav{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:5px;
+  }
+  nav a{
+    min-height:42px;
+    padding:10px 3px;
+    font-size:clamp(8px,1.8vw,11px);
+    letter-spacing:0;
+    text-align:center;
+  }
+  .hero:before{
+    background-position:90% 10%;
+    background-size:auto 65%;
+    opacity:.16;
+  }
+}
+@media(max-width:540px){
+  .brand strong{font-size:21px}
+  .brand small{font-size:8px}
+  .hero{
+    min-height:460px;
+    padding:30px 24px;
+  }
+  .hero:before{
+    background-position:95% 5%;
+    background-size:270px auto;
+    opacity:.19;
+  }
+  .hero h1{
+    font-size:clamp(35px,9vw,52px);
+    position:relative;
+    z-index:1;
+  }
+  .hero-content{width:100%}
+  .actions .btn{min-height:49px}
+}
+</style>
+
+<style id="ownz-member-forms-style">
+.member-card{grid-column:1/-1}
+.member-forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.member-forms form{min-width:0;padding:20px;border:1px solid #75323a;border-radius:10px;background:#100a0d}
+.member-forms h4,#member-dashboard h4{color:#ff6b74;letter-spacing:1.5px}
+.member-forms label{display:block;margin:15px 0 7px;color:#ead5d7;font-size:13px}
+.member-forms input{display:block;width:100%;min-height:46px;padding:12px;border:1px solid #854049;border-radius:7px;background:#090608;color:white;font-size:16px}
+.member-forms input:focus{outline:2px solid #ed3b48;outline-offset:2px}
+.member-forms button{width:100%;margin-top:20px;cursor:pointer}
+.member-forms button:disabled{opacity:.5;cursor:wait}
+#member-dashboard{padding:20px;border:1px solid #853b44;border-radius:10px;background:#110b0d}
+#member-status{min-height:22px;overflow-wrap:anywhere}
+[hidden]{display:none!important}
+@media(max-width:650px){.member-forms{grid-template-columns:1fr}}
+</style>
+
+<style id="ownz-industrial-interface">
+/* SHOCKER OWNZ — INDUSTRIAL COMMAND CENTER */
+:root{
+  --red:#ff243e;
+  --bg:#050405;
+  --panel:#10080b;
+  --line:#9b1829;
+}
+body{
+  background:
+    radial-gradient(ellipse at 50% 0%,#56051255,transparent 48%),
+    repeating-linear-gradient(90deg,transparent 0 69px,#ff183005 70px 71px),
+    #050405;
+}
+.topbar{
+  position:relative;
+  max-width:1600px;
+  margin:auto;
+  padding:22px;
+  border:1px solid #7e1524;
+  border-bottom:3px solid #ed1734;
+  background:
+    linear-gradient(120deg,#28080e,#080608 70%);
+  box-shadow:
+    inset 0 0 45px #bc11251c,
+    0 0 35px #b7002433;
+}
+.topbar:before,
+.hero:before{
+  pointer-events:none;
+}
+.brand img{
+  width:88px;
+  height:88px;
+  border:2px solid #f52240;
+  border-radius:8px;
+  box-shadow:
+    0 0 12px #ff163e,
+    0 0 38px #a00035;
+}
+.brand strong{
+  font-size:clamp(24px,4vw,43px);
+  font-weight:900;
+  letter-spacing:3px;
+  text-shadow:0 0 18px #e70c3055;
+}
+.brand small{
+  font-size:10px;
+  letter-spacing:3px;
+  color:#ffb8c0;
+}
+nav{
+  gap:6px;
+}
+nav a{
+  position:relative;
+  min-height:58px;
+  padding:15px 18px;
+  border:1px solid #681925;
+  border-radius:3px;
+  background:
+    linear-gradient(155deg,#230b10,#070608 75%);
+  box-shadow:inset 0 1px #ff5a6830;
+  transition:border-color .2s,box-shadow .2s;
+}
+nav a:hover,
+nav a:focus-visible{
+  border-color:#ff2944;
+  box-shadow:0 0 20px #d9003555;
+}
+main{
+  max-width:1500px;
+  padding:18px;
+}
+.hero{
+  min-height:470px;
+  border:2px solid #9b172b;
+  border-radius:5px;
+  background:
+    radial-gradient(circle at 80% 40%,#d0003444,transparent 42%),
+    repeating-linear-gradient(135deg,transparent 0 24px,#ff203009 25px 26px),
+    linear-gradient(115deg,#2a070e,#060507);
+  box-shadow:
+    inset 0 0 65px #000,
+    0 0 25px #c0002533;
+}
+.hero:after{
+  border-color:#ff23404d;
+  box-shadow:
+    0 0 0 35px #ed243012,
+    0 0 0 85px #ed24300a,
+    0 0 85px #e3203530;
+}
+.hero h1{
+  font-weight:900;
+  text-transform:uppercase;
+  text-shadow:
+    0 3px 2px #000,
+    0 0 30px #f0153244;
+}
+.section-head{
+  border-left:5px solid #ff2540;
+  margin-top:36px;
+}
+.section-head h2{
+  color:#fff;
+  text-shadow:0 0 15px #f0183233;
+}
+.cards{
+  gap:12px;
+}
+.card{
+  overflow:hidden;
+  border:1px solid #861b2a;
+  border-radius:4px;
+  background:
+    linear-gradient(135deg,#23090f,#080608 75%);
+  box-shadow:
+    inset 0 0 24px #a6001615,
+    0 0 16px #000;
+}
+.card:before{
+  left:0;
+  right:0;
+  height:3px;
+  background:linear-gradient(90deg,#700015,#ff2441,#700015);
+}
+.card h3{
+  color:#fff;
+  text-transform:uppercase;
+}
+.btn{
+  border-radius:4px;
+  border-color:#8f2030;
+  background:linear-gradient(#290c13,#0c080a);
+  box-shadow:inset 0 1px #ff667733;
+}
+.btn.primary{
+  background:linear-gradient(#fa243d,#8b001a);
+  border-color:#ff4b5f;
+  box-shadow:0 0 18px #d5003033;
+}
+#member-dashboard{
+  border-color:#a51b31;
+  background:linear-gradient(145deg,#19080e,#080607);
+}
+#owner-profile{
+  box-shadow:
+    inset 0 0 35px #a0002422,
+    0 0 35px #c5002733!important;
+}
+footer{
+  border-top:2px solid #c21b31;
+  background:#090608;
+}
+@media(max-width:800px){
+  .topbar{
+    padding:12px;
+  }
+  .brand img{
+    width:70px;
+    height:70px;
+  }
+  nav a{
+    min-height:50px;
+    padding:10px 4px;
+  }
+}
+@media(max-width:540px){
+  main{
+    padding:10px;
+  }
+  .brand strong{
+    font-size:clamp(19px,5vw,26px);
+  }
+  .brand small{
+    font-size:8px;
+    letter-spacing:1.5px;
+  }
+  .brand img{
+    width:60px;
+    height:60px;
+  }
+  .hero{
+    min-height:410px;
+    padding:26px 18px;
+  }
+  .card{
+    padding:20px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  nav a{
+    transition:none;
+  }
+}
+</style>
+
+
+<style id="ownz-command-masthead-css">
+.ownz-command-header{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:0;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:25px 30px 0;
+  background:
+    radial-gradient(ellipse at 20% 50%,#99001f55,transparent 48%),
+    repeating-linear-gradient(135deg,transparent 0 35px,#ff183008 36px 37px),
+    linear-gradient(110deg,#1c050a,#050405 78%);
+}
+.ownz-command-header:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:url("assets/images/logo-mask.png") no-repeat 2% center;
+  background-size:auto 120%;
+  opacity:.11;
+  pointer-events:none;
+}
+.ownz-command-header:after{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border:1px solid #ff284433;
+  clip-path:polygon(0 0,96% 0,100% 15%,100% 100%,4% 100%,0 85%);
+  pointer-events:none;
+}
+.ownz-command-brand{
+  padding:8px 0 24px;
+  justify-content:flex-start;
+  gap:25px;
+}
+.ownz-command-brand img{
+  width:clamp(95px,13vw,175px);
+  height:clamp(95px,13vw,175px);
+  flex-shrink:0;
+  border:2px solid #ff2948;
+  border-radius:12px;
+  box-shadow:0 0 20px #e90036,0 0 65px #bc002b66;
+}
+.ownz-brand-copy{min-width:0}
+.ownz-command-brand strong{
+  font-size:clamp(25px,5vw,65px);
+  line-height:1.05;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-shadow:0 4px 2px #000,0 0 35px #ff244455;
+}
+.ownz-command-brand strong span{color:#f52340}
+.ownz-studio-name{
+  margin-top:8px;
+  font-size:clamp(17px,2.8vw,35px);
+  font-weight:900;
+  letter-spacing:clamp(2px,.5vw,7px);
+  color:#f2e6e8;
+}
+.ownz-studio-subtitle{
+  margin-top:5px;
+  font-size:clamp(9px,1.2vw,13px);
+  letter-spacing:5px;
+  color:#ff3c55;
+}
+.ownz-command-brand small{
+  margin-top:10px;
+  color:#e8c8cd;
+  letter-spacing:3px;
+}
+.ownz-header-status{
+  align-self:start;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px;
+  border:1px solid #962033;
+  background:#0b0709;
+  color:#ff9ca9;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+.ownz-status-light{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ff304c;
+  box-shadow:0 0 12px #ff304c;
+}
+.ownz-command-header nav{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  width:100%;
+  padding:8px 0 12px;
+  border-top:2px solid #9b1c2c;
+}
+.ownz-command-header nav a{
+  min-width:0;
+  min-height:58px;
+  padding:12px 6px;
+  text-align:center;
+  border:1px solid #8c1c30;
+  background:linear-gradient(#2a0c14,#070607);
+  box-shadow:inset 0 1px #ff657433;
+}
+.ownz-command-header nav a:hover,
+.ownz-command-header nav a:focus-visible{
+  background:linear-gradient(#f51d3a,#650013);
+  box-shadow:0 0 20px #ff173b77;
+}
+@media(max-width:800px){
+  .ownz-command-header{
+    grid-template-columns:1fr;
+    padding:15px 14px 0;
+  }
+  .ownz-command-brand{
+    justify-content:center;
+    gap:15px;
+    padding:10px 0 20px;
+  }
+  .ownz-command-brand img{
+    width:90px;
+    height:90px;
+  }
+  .ownz-header-status{display:none}
+}
+@media(max-width:540px){
+  .ownz-command-header{padding:12px 8px 0}
+  .ownz-command-brand{gap:12px}
+  .ownz-command-brand img{
+    width:75px;
+    height:75px;
+  }
+  .ownz-command-brand strong{
+    font-size:clamp(19px,5.5vw,28px);
+  }
+  .ownz-studio-name{
+    font-size:clamp(13px,4vw,19px);
+    letter-spacing:2px;
+  }
+  .ownz-studio-subtitle{
+    font-size:8px;
+    letter-spacing:2px;
+  }
+  .ownz-command-brand small{
+    font-size:7px;
+    letter-spacing:1px;
+  }
+  .ownz-command-header nav{gap:4px}
+  .ownz-command-header nav a{
+    min-height:51px;
+    padding:10px 2px;
+    font-size:clamp(8px,2vw,11px);
+    overflow-wrap:anywhere;
+  }
+}
+</style>
+
+
+<style id="ownz-phase46-command-css">
+/* SHOCKER OWNZ — PHASE 46 COMMAND CENTER */
+
+:root{
+  --ownz-fire:#ff203d;
+  --ownz-blood:#920019;
+  --ownz-steel:#350c16;
+}
+
+body{
+  background:
+    radial-gradient(ellipse at 50% 0%,#6d001b44,transparent 52%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 79px,
+      #ff203d05 80px 81px
+    ),
+    #050405;
+}
+
+/* INDUSTRIAL PANEL FRAMEWORK */
+
+.hero,
+.card,
+#member-dashboard,
+#ownz-xp-panel{
+  position:relative;
+  isolation:isolate;
+  border-color:#b01a31;
+  box-shadow:
+    inset 0 0 28px #7c001522,
+    inset 0 1px #ff627044,
+    0 0 22px #b8002422,
+    0 12px 35px #0009;
+}
+
+.hero{
+  border-width:2px;
+  background:
+    linear-gradient(100deg,#130509dd,#080507bb),
+    radial-gradient(circle at 80% 40%,#d0003444,transparent 48%),
+    url("assets/images/logo-mask.png") no-repeat 92% center,
+    #090507;
+  background-size:cover,cover,auto 100%,cover;
+}
+
+.hero:before{
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 28px,
+      #ff203d09 29px 30px
+    );
+  opacity:1;
+  inset:0;
+}
+
+.hero:after{
+  width:190px;
+  height:190px;
+  right:-85px;
+  top:-90px;
+  border:1px solid #ff365044;
+  box-shadow:
+    0 0 0 20px #ff203d0a,
+    0 0 40px #ff203d18;
+}
+
+/* ILLUMINATED CORNERS */
+
+.card:after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid #ff34501b;
+  clip-path:polygon(
+    0 0,35px 0,35px 1px,
+    calc(100% - 35px) 1px,
+    100% 35px,100% 100%,
+    35px 100%,0 calc(100% - 35px)
+  );
+  pointer-events:none;
+}
+
+.card:before{
+  height:3px;
+  background:linear-gradient(
+    90deg,
+    #52000e,
+    #ff2b46 30%,
+    #ff6574 50%,
+    #ff2b46 70%,
+    #52000e
+  );
+  box-shadow:0 0 12px #ff244777;
+}
+
+.card:hover{
+  border-color:#e32b43;
+  box-shadow:
+    inset 0 0 35px #9b001b25,
+    0 0 28px #c5003033;
+}
+
+/* METALLIC TYPOGRAPHY */
+
+.section-head h2,
+.card h3,
+#member-dashboard h4{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  text-shadow:0 2px #000,0 0 18px #f0223b33;
+}
+
+.section-head{
+  border-left:5px solid #ff2846;
+  box-shadow:-6px 0 16px -10px #ff2846;
+}
+
+.card .symbol{
+  color:#ff3b53;
+  filter:drop-shadow(0 0 9px #ed153b77);
+}
+
+/* FORGED BUTTONS */
+
+.btn,
+nav a{
+  text-transform:uppercase;
+  font-weight:900;
+  box-shadow:
+    inset 0 1px #ff657433,
+    inset 0 -2px #0008,
+    0 0 12px #7c001522;
+}
+
+.btn.primary{
+  background:linear-gradient(
+    180deg,
+    #ff3850 0%,
+    #e20c2e 48%,
+    #790016 100%
+  );
+  box-shadow:
+    inset 0 1px #ff9aa455,
+    0 0 20px #e0003444;
+}
+
+/* MEMBER COMMAND PANELS */
+
+#member-dashboard{
+  border-width:1px;
+  background:
+    radial-gradient(circle at 50% 0%,#64001933,transparent 55%),
+    linear-gradient(145deg,#19080e,#080607);
+}
+
+#ownz-xp-panel{
+  border-color:#c51c36!important;
+}
+
+#ownz-xp-fill{
+  box-shadow:0 0 18px #ff244b!important;
+}
+
+/* MOBILE: MORE COMMAND CENTER, LESS SCROLLING */
+
+@media(max-width:540px){
+  .hero{
+    min-height:0;
+    padding:25px 19px;
+  }
+
+  .hero h1{
+    font-size:clamp(31px,8vw,43px);
+    line-height:1.07;
+    margin:14px 0;
+  }
+
+  .hero p{
+    font-size:14px;
+    line-height:1.55;
+  }
+
+  .hero .actions{
+    gap:9px;
+    margin-top:18px;
+  }
+
+  .hero .actions .btn{
+    min-height:46px;
+    padding:11px 13px;
+    font-size:11px;
+  }
+
+  .section-head{
+    margin:27px 0 15px;
+  }
+
+  .card{
+    min-height:0;
+    padding:19px;
+  }
+
+  .card h3{
+    margin:12px 0 8px;
+  }
+
+  .card p{
+    line-height:1.5;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .card,
+  .btn,
+  nav a{
+    transition:none;
+  }
+}
+</style>
+
+
+<style id="ownz-phase47-cards-css">
+#games,#downloads{
+  min-height:245px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-end;
+  overflow:hidden;
+  padding:26px;
+  background:
+    radial-gradient(circle at 80% 12%,#e5003040,transparent 42%),
+    repeating-linear-gradient(135deg,transparent 0 26px,#ff244008 27px 28px),
+    linear-gradient(145deg,#280910,#060506 85%);
+}
+#games:after,#downloads:after{
+  content:"";
+  position:absolute;
+  top:-35px;
+  right:-28px;
+  width:175px;
+  height:175px;
+  border:1px solid #ff28442a;
+  border-radius:50%;
+  box-shadow:0 0 0 16px #ff284409,0 0 0 42px #ff284406;
+  pointer-events:none;
+}
+#games>*,
+#downloads>*{
+  position:relative;
+  z-index:1;
+}
+.ownz-feature-icon{
+  display:grid;
+  place-items:center;
+  width:76px;
+  height:76px;
+  padding:14px;
+  border:1px solid #ff3c55;
+  border-radius:12px;
+  background:linear-gradient(145deg,#510c1c,#10070a);
+  box-shadow:inset 0 0 18px #f0153220,0 0 22px #e9003540;
+  color:#ff405b;
+}
+.ownz-feature-icon svg{
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 0 7px #ff244b);
+}
+#games h3,#downloads h3{
+  margin:17px 0 7px;
+  font-size:clamp(20px,2vw,27px);
+}
+#games p,#downloads p{
+  max-width:370px;
+  margin:0 0 15px;
+}
+#games .tag,#downloads .tag{
+  border-color:#d12a40;
+  background:#26070e;
+  font-weight:800;
+}
+@media(max-width:540px){
+  #games,#downloads{
+    min-height:215px;
+    padding:21px;
+  }
+  .ownz-feature-icon{
+    width:65px;
+    height:65px;
+  }
+}
+</style>
+
+
+<style id="ownz-phase49-showcase">
+.ownz-game-showcase{grid-column:1/-1!important;text-align:left!important;
+  align-items:stretch!important;min-height:unset!important;padding:30px!important}
+.ownz-showcase-heading{display:flex;align-items:center;gap:12px;
+  color:#f66;letter-spacing:2px;font-size:12px;font-weight:800}
+.ownz-live-indicator{height:9px;width:9px;border-radius:50%;
+  background:#ed2222;box-shadow:0 0 14px #ed2222}
+.ownz-game-showcase h3{font-size:clamp(34px,6vw,64px)!important;
+  letter-spacing:2px;margin:18px 0 0!important}
+.ownz-showcase-tagline{color:#ff5757!important;font-weight:900;
+  letter-spacing:2px}
+.ownz-game-actions{display:flex;align-items:center;flex-wrap:wrap;
+  gap:16px;margin:24px 0}
+.ownz-game-actions .btn{display:inline-flex;align-items:center;
+  justify-content:center;min-height:52px;padding:12px 28px}
+.ownz-showcase-divider{height:1px;margin:24px 0;
+  background:linear-gradient(90deg,#e02020,#501010,transparent)}
+.ownz-game-showcase h4{letter-spacing:2px;color:#fff;margin:8px 0 14px}
+.ownz-preview-note{font-size:13px;color:#aaa}
+.ownz-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ownz-preview-grid>div{min-height:115px;display:flex;align-items:end;
+  padding:14px;border:1px solid #672020;border-radius:12px;
+  background:linear-gradient(145deg,#211317,#0a0a0d);
+  color:#e8c7c7;font-size:12px;font-weight:800;letter-spacing:1px}
+.ownz-upcoming-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ownz-upcoming-games>div{display:flex;flex-wrap:wrap;justify-content:space-between;
+  align-items:center;gap:10px;padding:20px;border:1px solid #512020;
+  border-radius:12px;background:#120d10}
+.ownz-upcoming-games strong{color:#eee;letter-spacing:1px}
+.ownz-upcoming-games span{font-size:11px;color:#ff6868;font-weight:800;
+  letter-spacing:1px}
+@media(max-width:650px){
+  .ownz-game-showcase{padding:20px!important}
+  .ownz-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ownz-upcoming-games{grid-template-columns:1fr}
+}
+</style>
+
+
+<style id="ownz-phase52-gallery-style">
+.ownz-real-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.ownz-real-gallery .ownz-game-preview {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #8d1b27;
+  border-radius: 12px;
+  background: #100609;
+  box-shadow: 0 10px 28px rgba(0,0,0,.5);
+}
+
+.ownz-real-gallery .ownz-game-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  object-position: top;
+  background: #090407;
+}
+
+.ownz-real-gallery .ownz-game-preview figcaption {
+  padding: 12px 8px;
+  color: #ffb4ba;
+  background: linear-gradient(180deg,#25080e,#100609);
+  border-top: 1px solid #72202a;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+  .ownz-real-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .ownz-real-gallery {
+    gap: 9px;
+  }
+
+  .ownz-real-gallery .ownz-game-preview figcaption {
+    font-size: 9px;
+    letter-spacing: .3px;
+    padding: 10px 4px;
+  }
+}
+</style>
+
+
+<style id="ownz-phase53-gateway-style">
+.ownz-grow-gateway {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 22px 0;
+  padding: 25px;
+  border: 1px solid #a32232;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 0% 50%,rgba(180,12,35,.28),transparent 48%),
+    linear-gradient(125deg,#23080e,#0c070a 78%);
+  box-shadow: inset 0 0 28px rgba(90,0,15,.16);
+}
+.ownz-gateway-emblem {
+  flex: 0 0 76px;
+  text-align: center;
+  font-size: 62px;
+  color: #ef3045;
+  text-shadow: 0 0 25px rgba(255,20,50,.35);
+}
+.ownz-gateway-content { min-width: 0; }
+.ownz-gateway-eyebrow {
+  color: #ff7584;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.ownz-gateway-content h4 {
+  margin: 7px 0;
+  color: #fff;
+  font-size: clamp(19px,3vw,28px);
+  letter-spacing: 1px;
+}
+.ownz-gateway-content p {
+  color: #d5b6bc;
+  line-height: 1.6;
+}
+.ownz-gateway-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ownz-gateway-secondary {
+  border: 1px solid #a52a3a;
+  background: #1a0b10;
+  color: #fff;
+}
+@media(max-width:550px) {
+  .ownz-grow-gateway {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 14px;
+    gap: 6px;
+  }
+  .ownz-gateway-emblem { flex-basis: auto; font-size: 48px; }
+  .ownz-gateway-actions { justify-content: center; }
+  .ownz-gateway-actions .btn { flex: 1 1 135px; }
+}
+</style>
+
+
+<style id="ownz-board-style">
+#ownz-live-leaderboard{display:grid;gap:10px;margin-top:18px}
+.ownz-rank-row{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;padding:15px;border:1px solid #94333e;border-radius:9px;background:linear-gradient(120deg,#3a151d,#110a0d)}
+.ownz-rank-row.owner{border-color:#ff5366;box-shadow:0 0 18px #e32b3833}
+.ownz-rank-position{font-size:20px;font-weight:900;color:#ff5366}
+.ownz-rank-name{font-weight:900;overflow-wrap:anywhere}
+.owner .ownz-rank-name{color:#ffddaa}
+.ownz-rank-detail{font-size:11px;color:#d7a5ad;margin-top:6px}
+.ownz-rank-xp{font-size:14px;font-weight:900;color:#ff6875;margin-top:8px}
+#board-refresh{cursor:pointer}
+</style>
+</head>
+<body>
+<header class="topbar ownz-command-header">
+<a class="brand ownz-command-brand" href="#home">
+<img src="assets/images/logo-mask.png" alt="Shocker OwnZ gas-mask logo">
+<div class="ownz-brand-copy">
+<strong>SHOCKER <span>OWNZ</span></strong>
+<div class="ownz-studio-name">OWNZ FORGE AI</div>
+<div class="ownz-studio-subtitle">DEVELOPMENT STUDIO</div>
+<small>BUILT LIKE YOU OWN THE SHOW</small>
+</div>
+</a>
+<div class="ownz-header-status">
+<span class="ownz-status-light" aria-hidden="true"></span>
+<span>THE SHOCKER OWNZ EMPIRE</span>
+</div>
+<nav aria-label="Main navigation">
+<a href="#games">GAMES</a>
+<a href="#downloads">DOWNLOADS</a>
+<a href="#rankings">RANKINGS</a>
+<a href="#premium">PREMIUM</a>
+<a href="#members">REGISTER</a>
+</nav>
+</header>
+<main>
+<section class="hero" id="home">
+<div class="hero-content">
+<div class="eyebrow">SHOCKER OWNZ // OFFICIAL PLATFORM</div>
+<h1>OWN THE <span>CODE.</span><br>OWN THE <span>SHOW.</span></h1>
+<p>Welcome to the Shocker OwnZ ecosystem. Games, exclusive downloads, community rankings and the next generation of OWNZ Forge development.</p>
+<div class="actions">
+<a class="btn primary" href="#members">JOIN THE EMPIRE — FREE</a>
+<a class="btn" href="#games">EXPLORE GAMES</a>
+</div>
+</div>
+</section>
+<div class="section-head"><h2>ENTER THE ECOSYSTEM</h2><p>One account. One identity. One unified ranking system.</p></div>
+<div class="cards">
+
+<section class="card ownz-game-showcase" id="games">
+  <div class="ownz-showcase-heading">
+    <span class="ownz-live-indicator"></span>
+    <span>SHOCKER OWNZ // GAME HUB</span>
+  </div>
+  <h3>GROW EMPIRE</h3>
+  <p class="ownz-showcase-tagline">GROW LIKE YOU OWN THE SHOW.</p>
+  <p>Build your cultivation empire. Master your grow room, develop genetics,
+  run your dispensary, and complete missions.</p>
+  <div class="ownz-game-actions">
+    <a class="btn primary" id="ownz-grow-play"
+  href="/games/grow-empire/">&#9654; PLAY NOW</a>
+    <span class="tag">BROWSER BUILD</span>
+  </div>
+
+  <aside class="ownz-grow-gateway" id="ownz-grow-gateway"
+    aria-label="Grow Empire membership access">
+    <div class="ownz-gateway-emblem" aria-hidden="true">☠</div>
+    <div class="ownz-gateway-content">
+      <span class="ownz-gateway-eyebrow">SHOCKER OWNZ MEMBER ACCESS</span>
+      <h4>YOUR EMPIRE AWAITS.</h4>
+      <p>Free membership unlocks Grow Empire. Sign in or create
+      your account to begin building your legacy.</p>
+      <div class="ownz-gateway-actions">
+        <a class="btn primary" href="#members">JOIN THE EMPIRE</a>
+        <a class="btn ownz-gateway-secondary" href="#member-login-form">
+          MEMBER LOGIN
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="ownz-showcase-divider"></div>
+  <h4>GAMEPLAY PREVIEW</h4>
+  <p class="ownz-preview-note">ENTER THE EMPIRE. BUILD YOUR LEGACY. Real gameplay. Real progression. Your empire starts here.</p>
+  <div class="ownz-preview-grid ownz-real-gallery">
+    <figure class="ownz-game-preview">
+      <img
+        src="/assets/images/grow-empire/command-center.webp"
+        alt="Grow Empire — Empire Command Center gameplay"
+        loading="lazy"
+        decoding="async"
+        width="1080"
+        height="2000">
+      <figcaption>EMPIRE COMMAND CENTER</figcaption>
+    </figure>
+    <figure class="ownz-game-preview">
+      <img
+        src="/assets/images/grow-empire/grow-room.webp"
+        alt="Grow Empire — Grow Room gameplay"
+        loading="lazy"
+        decoding="async"
+        width="1080"
+        height="2000">
+      <figcaption>GROW ROOM</figcaption>
+    </figure>
+    <figure class="ownz-game-preview">
+      <img
+        src="/assets/images/grow-empire/dispensary.webp"
+        alt="Grow Empire — Dispensary gameplay"
+        loading="lazy"
+        decoding="async"
+        width="1080"
+        height="2000">
+      <figcaption>DISPENSARY</figcaption>
+    </figure>
+    <figure class="ownz-game-preview">
+      <img
+        src="/assets/images/grow-empire/missions.webp"
+        alt="Grow Empire — Missions gameplay"
+        loading="lazy"
+        decoding="async"
+        width="1080"
+        height="2000">
+      <figcaption>MISSIONS</figcaption>
+    </figure>
+  </div>
+  <div class="ownz-showcase-divider"></div>
+  <h4>UPCOMING PROJECTS</h4>
+  <div class="ownz-upcoming-games">
+    <div><strong>ECHOBOUND</strong><span>IN DEVELOPMENT</span></div>
+    <div><strong>FATALACIDBURN</strong><span>IN DEVELOPMENT</span></div>
+  </div>
+</section>
+<section class="card" id="downloads"><div class="symbol ownz-feature-icon" aria-hidden="true">
+<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M32 6v33"/>
+<path d="m20 28 12 12 12-12"/>
+<path d="M11 43v12h42V43"/>
+<path d="M18 49h28"/>
+<path d="M15 12h10M39 12h10"/>
+</svg>
+</div><h3>DOWNLOAD VAULT</h3><p>Explore free releases and member resources. Protected downloads are coming soon.</p><span class="tag">FREE + MEMBER CONTENT</span></section>
+
+<section class="card member-card" id="members">
+<div class="symbol">☠</div>
+<h3>JOIN THE EMPIRE</h3>
+<p>One account. One identity. Your place in the Shocker OwnZ ecosystem.</p>
+
+<div id="member-guest">
+<div class="member-forms">
+
+<form id="member-register-form">
+<h4>CREATE FREE ACCOUNT</h4>
+<label for="reg-username">Username</label>
+<input id="reg-username" name="username" minlength="3" maxlength="24"
+pattern="[A-Za-z0-9_]+" autocomplete="username" required
+placeholder="Choose your username">
+
+<label for="reg-email">Email address</label>
+<input id="reg-email" name="email" type="email" maxlength="254"
+autocomplete="email" required placeholder="you@example.com">
+
+<label for="reg-password">Password (12+ characters)</label>
+<input id="reg-password" name="password" type="password"
+minlength="12" maxlength="1024" autocomplete="new-password" required
+placeholder="Create a strong password">
+
+<button class="btn primary" type="submit">CREATE ACCOUNT</button>
+</form>
+
+<form id="member-login-form">
+<h4>MEMBER LOGIN</h4>
+<label for="login-identifier">Username or email</label>
+<input id="login-identifier" name="identifier"
+autocomplete="username" required placeholder="Username or email">
+
+<label for="login-password">Password</label>
+<input id="login-password" name="password" type="password"
+autocomplete="current-password" required placeholder="Your password">
+
+<button class="btn primary" type="submit">LOGIN</button>
+</form>
+
+</div>
+</div>
+
+<div id="member-dashboard" hidden>
+<div id="owner-profile" hidden style="margin-bottom:22px;padding:20px;border:1px solid #a31324;border-radius:18px;background:linear-gradient(145deg,#200006,#090909);text-align:center;box-shadow:0 0 35px #8b001533">
+<img src="assets/images/owner-avatar.png" alt="Shocker OwnZ official founder avatar" style="display:block;width:150px;height:150px;object-fit:cover;border-radius:50%;border:3px solid #dc172d;box-shadow:0 0 28px #c90035;margin:0 auto 14px">
+<div style="font-size:12px;letter-spacing:4px;color:#ff5366">THE FOUNDER</div>
+<h3 style="margin:8px 0;color:#fff;letter-spacing:2px">SHOCKEROWNZ</h3>
+<div style="font-weight:900;color:#ff334c;letter-spacing:3px">MASTER • OWNER</div>
+<p style="color:#aaa;font-size:12px">ONE OWNER. ONE FORGE. ONE FATALACIDBURN.</p>
+<div style="margin-top:12px;color:#ff5366;font-size:12px">ADMINISTRATOR • PREMIUM ACCESS</div>
+</div>
+<h4>MEMBER DASHBOARD</h4>
+<p>Welcome, <strong id="member-name"></strong></p>
+<p>Membership: <strong id="member-role"></strong></p>
+
+<div id="ownz-xp-panel" style="margin:22px 0;padding:20px;border:1px solid #a31324;border-radius:16px;background:linear-gradient(145deg,#21070b,#090909);box-shadow:0 0 24px #8b001522">
+  <div style="color:#ff5366;font-size:12px;font-weight:900;letter-spacing:3px">LIVE MEMBER PROGRESSION</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px">
+    <div>
+      <div style="font-size:12px;color:#aaa">CURRENT LEVEL</div>
+      <div id="ownz-level" style="font-size:38px;font-weight:900;color:#fff">—</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:12px;color:#aaa">OFFICIAL RANK</div>
+      <div id="ownz-rank" style="font-size:20px;font-weight:900;color:#ff334c;overflow-wrap:anywhere">LOADING</div>
+      <div id="ownz-title" style="font-size:12px;color:#ddd"></div>
+    </div>
+  </div>
+  <div style="margin-top:20px">
+    <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#ddd">
+      <span>LEVEL PROGRESS</span>
+      <span id="ownz-xp-label">Loading...</span>
+    </div>
+    <div id="ownz-xp-track" role="progressbar" aria-label="Progress toward next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="height:13px;margin-top:9px;border:1px solid #75202b;border-radius:20px;background:#080406;overflow:hidden">
+      <div id="ownz-xp-fill" style="height:100%;width:0%;border-radius:20px;background:linear-gradient(90deg,#7d0014,#ff243f);transition:width .7s ease;box-shadow:0 0 14px #e00033"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:12px;margin-top:20px">
+    <div><div style="font-size:11px;color:#aaa">WEBSITE XP</div><strong id="ownz-website-xp" style="color:#fff">—</strong></div>
+    <div><div style="font-size:11px;color:#aaa">GAMEPLAY XP</div><strong id="ownz-gameplay-xp" style="color:#fff">—</strong></div>
+    <div><div style="font-size:11px;color:#aaa">TOTAL XP</div><strong id="ownz-total-xp" style="color:#ff5366">—</strong></div>
+  </div>
+  <div id="ownz-premium-status" style="margin-top:20px;font-size:12px;font-weight:800;letter-spacing:1px;color:#ff5366">VERIFYING MEMBERSHIP...</div>
+  <p id="ownz-progress-error" role="status" style="font-size:12px;color:#ff8585" hidden></p>
+</div>
+
+
+
+<!-- PHASE 55: DAILY REWARDS -->
+<section id="ownz-daily-rewards"
+  aria-labelledby="ownz-daily-heading"
+  style="margin:22px 0;padding:20px;border:1px solid #a31324;border-radius:16px;background:linear-gradient(145deg,#21070b,#090909);box-shadow:0 0 24px #8b001522">
+
+  <h4 id="ownz-daily-heading"
+    style="margin:0;color:#ff5366;letter-spacing:2px">
+    DAILY XP REWARDS
+  </h4>
+
+  <p style="color:#ddd;font-size:13px">
+    Return every day to build your streak and earn Empire XP.
+    Rewards reset at midnight UTC.
+  </p>
+
+  <div id="ownz-daily-days"
+    aria-label="Seven-day reward schedule"
+    style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:18px 0">
+  </div>
+
+  <p id="ownz-daily-streak"
+    style="color:#ff5366;font-weight:800;font-size:14px">
+    Loading your streak...
+  </p>
+
+  <button id="ownz-daily-claim"
+    class="btn primary" type="button" disabled>
+    CHECKING REWARD...
+  </button>
+
+  <p id="ownz-daily-status"
+    role="status" aria-live="polite"
+    style="min-height:22px;color:#ddd;font-size:13px;overflow-wrap:anywhere">
+    Checking your daily reward...
+  </p>
+</section>
+
+<!-- OWNZ MEMBER PROFILE EDITOR V1 -->
+<section id="ownz-profile-editor" aria-labelledby="ownz-profile-heading"
+style="margin:22px 0;padding:20px;border:1px solid #a31324;border-radius:16px;background:linear-gradient(145deg,#21070b,#090909);box-shadow:0 0 24px #8b001522">
+
+<h4 id="ownz-profile-heading" style="margin:0;color:#ff5366;letter-spacing:2px">
+☠ MEMBER PROFILE
+</h4>
+
+<p style="color:#ddd;font-size:13px">
+Complete your Empire profile to earn
+<strong style="color:#ff5366">100 WEBSITE XP</strong>.
+One reward per account.
+</p>
+
+<form id="ownz-profile-form" style="display:grid;gap:15px">
+
+<label for="ownz-profile-name" style="display:grid;gap:7px;color:#eee;font-size:13px">
+DISPLAY NAME
+<input id="ownz-profile-name" name="display_name"
+type="text" maxlength="40" minlength="3" required
+autocomplete="nickname" placeholder="Your Empire identity"
+style="width:100%;min-width:0;padding:13px;border:1px solid #85323d;border-radius:8px;background:#090608;color:white;font-size:16px">
+</label>
+
+<label for="ownz-profile-bio" style="display:grid;gap:7px;color:#eee;font-size:13px">
+MEMBER BIO
+<textarea id="ownz-profile-bio" name="bio"
+maxlength="500" minlength="20" required rows="4"
+placeholder="Tell the Empire about yourself..."
+style="width:100%;min-width:0;padding:13px;border:1px solid #85323d;border-radius:8px;background:#090608;color:white;font-size:16px;resize:vertical"></textarea>
+</label>
+
+<label for="ownz-profile-game" style="display:grid;gap:7px;color:#eee;font-size:13px">
+FAVORITE GAME
+<input id="ownz-profile-game" name="favorite_game"
+type="text" maxlength="80" minlength="2" required
+placeholder="Grow Empire, ECHOBOUND, etc."
+style="width:100%;min-width:0;padding:13px;border:1px solid #85323d;border-radius:8px;background:#090608;color:white;font-size:16px">
+</label>
+
+<button class="btn primary" type="submit" id="ownz-profile-save">
+SAVE EMPIRE PROFILE
+</button>
+
+</form>
+
+<p id="ownz-profile-status" role="status" aria-live="polite"
+style="min-height:22px;color:#ddd;font-size:13px;overflow-wrap:anywhere">
+Profile loading...
+</p>
+
+<div id="ownz-profile-reward"
+style="padding:12px;border:1px solid #653034;border-radius:8px;color:#ff5366;font-weight:800;font-size:13px">
+◆ PROFILE COMPLETION REWARD: 100 XP
+</div>
+
+</section>
+
+<button class="btn" id="member-logout" type="button">LOG OUT</button>
+</div>
+
+<p id="member-status" role="status" aria-live="polite"></p>
+</section>
+
+
+<section class="card" id="rankings" style="grid-column:1/-1">
+<h3>🏆 SHOCKER OWNZ GLOBAL LEADERBOARD</h3>
+<p>ONE EMPIRE. ONE RANKING SYSTEM.</p>
+<button class="btn" id="board-refresh" type="button">↻ REFRESH</button>
+<p id="board-status" role="status">Loading rankings...</p>
+<div id="ownz-live-leaderboard"></div>
+<p>Verified XP only. Premium access requires authorization.</p>
+</section>
+
+<section class="card" id="premium"><div class="symbol">🔒</div><h3>PREMIUM VAULT</h3><p>Exclusive games, resources and future releases. Premium access requires authorization.</p><span class="tag">MEMBERSHIP PROTECTED</span></section>
+<section class="card"><div class="symbol">⚙</div><h3>OWNZ FORGE AI</h3><p>Advanced creation tools powered by the Shocker OwnZ development ecosystem.</p><span class="tag">PRIVATE DEVELOPMENT</span></section>
+</div>
+</main>
+<footer>© 2026 SHOCKER OWNZ · ONE OWNER. ONE FORGE. ONE FATALACIDBURN.</footer>
+<script type="module" src="assets/js/membership.js"></script>
+<script defer src="assets/js/daily-rewards.js"></script>
+
+
+<script id="ownz-phase53-gateway-session">
+(() => {
+  const gateway = document.getElementById('ownz-grow-gateway');
+  const dashboard = document.getElementById('member-dashboard');
+
+  if (!gateway || !dashboard) return;
+
+  const actions = gateway.querySelector('.ownz-gateway-actions');
+  const description = gateway.querySelector('.ownz-gateway-content p');
+
+  if (!actions || !description) return;
+
+  const guestActions = actions.innerHTML;
+  const guestDescription = description.textContent;
+
+  function updateGateway() {
+    const authenticated = !dashboard.hidden;
+
+    if (authenticated) {
+      description.textContent =
+        'MEMBER ACCESS VERIFIED. Your empire is ready.';
+
+      actions.innerHTML =
+        '<a class="btn primary" href="/games/grow-empire/">' +
+        '▶ ENTER GROW EMPIRE</a>';
+    } else {
+      description.textContent = guestDescription;
+      actions.innerHTML = guestActions;
+    }
+  }
+
+  const observer = new MutationObserver(updateGateway);
+
+  observer.observe(dashboard, {
+    attributes: true,
+    attributeFilter: ['hidden']
+  });
+
+  updateGateway();
+})();
+</script>
+
+<script id="ownz-grow-member-launch">
+(() => {
+  const button = document.getElementById('ownz-grow-play');
+  if (!button) return;
+
+  button.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    if (button.dataset.checking === '1') return;
+    button.dataset.checking = '1';
+    button.setAttribute('aria-busy', 'true');
+
+    try {
+      const response = await fetch('/api/members/me', {
+        credentials: 'same-origin',
+        cache: 'no-store'
+      });
+
+      if (response.ok) {
+        window.location.assign('/games/grow-empire/');
+        return;
+      }
+
+      if (response.status === 401) {
+        window.location.assign('/#members');
+        return;
+      }
+
+      alert('Membership verification is temporarily unavailable. Please try again.');
+    } catch {
+      alert('Unable to verify membership. Check your connection and try again.');
+    } finally {
+      delete button.dataset.checking;
+      button.removeAttribute('aria-busy');
+    }
+  });
+})();
+</script>
+
+
+<script id="ownz-board-script">
+(()=>{
+'use strict';
+const box=document.getElementById('ownz-live-leaderboard');
+const status=document.getElementById('board-status');
+const button=document.getElementById('board-refresh');
+if(!box||!status||!button)return;
+const fmt=x=>Number(x||0).toLocaleString();
+function text(tag,cls,value){
+ const e=document.createElement(tag);
+ e.className=cls;
+ e.textContent=String(value??'');
+ return e;
+}
+async function load(){
+ button.disabled=true;
+ status.textContent='Loading rankings...';
+ try{
+  const response=await fetch('/api/members/leaderboard',{cache:'no-store'});
+  if(!response.ok)throw Error('Unavailable');
+  const data=await response.json();
+  if(!Array.isArray(data.leaderboard))throw Error('Invalid response');
+  const fragment=document.createDocumentFragment();
+  for(const m of data.leaderboard){
+   const row=text('div','ownz-rank-row','');
+   if(m.rank==='MASTER'&&m.title==='OWNER')row.classList.add('owner');
+   row.append(text('div','ownz-rank-position','#'+m.position));
+   const info=text('div','','');
+   info.append(text('div','ownz-rank-name',m.username));
+   info.append(text('div','ownz-rank-detail','LEVEL '+m.level+' • '+m.rank+' • '+m.title));
+   info.append(text('div','ownz-rank-xp',fmt(m.totalXP)+' XP'));
+   info.append(text('div','ownz-rank-detail','WEB '+fmt(m.websiteXP)+' • GAME '+fmt(m.gameplayXP)));
+   row.append(info);
+   fragment.append(row);
+  }
+  box.replaceChildren(fragment);
+  status.textContent='TOP '+data.leaderboard.length+' EMPIRE MEMBERS';
+ }catch(e){
+  status.textContent='Unable to load rankings. Tap refresh.';
+ }finally{button.disabled=false}
+}
+button.addEventListener('click',load);
+load();
+})();
+</script>
+</body>
+</html>

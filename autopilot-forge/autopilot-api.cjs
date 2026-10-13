@@ -1,0 +1,15 @@
+'use strict';
+const express=require('express'),fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto'),{spawn}=require('node:child_process');
+const router=express.Router();
+const root=process.cwd(),dir=path.join(root,'.ownz-recovery','autopilot'),report=path.join(dir,'last-report.json');
+const allowed=new Set(['http://127.0.0.1:5173','http://localhost:5173']);
+router.use((req,res,next)=>{res.set('Cache-Control','no-store');next()});
+let running=false;
+function run(cmd,args,timeout=90000){return new Promise(resolve=>{let out='',err='',done=false;const p=spawn(cmd,args,{cwd:root,env:{...process.env,GIT_TERMINAL_PROMPT:'0'},stdio:['ignore','pipe','pipe']});const timer=setTimeout(()=>p.kill('SIGTERM'),timeout);p.stdout.on('data',d=>out=(out+d).slice(-12000));p.stderr.on('data',d=>err=(err+d).slice(-12000));p.on('error',e=>{clearTimeout(timer);if(!done){done=true;resolve({ok:false,error:e.message})}});p.on('close',(code,signal)=>{clearTimeout(timer);if(!done){done=true;resolve({ok:code===0,code,signal,output:out.trim(),error:err.trim()})}})})}
+async function diagnostics(){const tests=[];const add=(name,ok,detail)=>tests.push({name,ok,detail});for(const f of ['server.js','editor/index.html','.ownz-tools/autosync.sh','ai-models/Qwen3.5-4B-Q4_K_M.gguf']){try{const s=await fsp.stat(path.join(root,f));add('File: '+f,s.isFile()&&s.size>0,`${s.size} bytes`)}catch(e){add('File: '+f,false,e.code||e.message)}}const ignore=await run('git',['check-ignore','-q','ai-models/Qwen3.5-4B-Q4_K_M.gguf']);add('Local model ignored',ignore.ok,ignore.ok?'Protected from normal Git staging':'Not ignored');const branch=await run('git',['branch','--show-current']);add('Main branch',branch.ok&&branch.output==='main',branch.output||branch.error);for(const file of ['server.js','ai-api.js','fatalacidburn-specialists.js']){const result=await run('node',['--check',file]);add('Syntax: '+file,result.ok,result.ok?'PASS':result.error)}const status=await run('git',['status','--short']);add('Git status readable',status.ok,status.ok?`${status.output.split('\n').filter(Boolean).length} changed/untracked entries`:status.error);return tests}
+async function getReport(){try{return JSON.parse(await fsp.readFile(report,'utf8'))}catch{return null}}
+router.get('/status',async(req,res)=>{const last=await getReport();res.json({ok:true,mode:'guarded',running,last,operations:{automatic:['diagnostics','verified local main-branch backup','reports'],approvalRequired:['installer execution','rollback','GitHub publish','code modification']}})});
+router.get('/report',async(req,res)=>res.json({ok:true,report:await getReport()}));
+// Read-only endpoints. Automatic job runs in a separate Termux scheduler; no browser-triggered shell execution.
+router.get('/history',async(req,res)=>{try{const names=(await fsp.readdir(dir)).filter(x=>/^report-\d{8}T\d{6}Z\.json$/.test(x)).sort().reverse().slice(0,20);res.json({ok:true,history:await Promise.all(names.map(async n=>({file:n,...JSON.parse(await fsp.readFile(path.join(dir,n),'utf8'))})))})}catch(e){res.json({ok:true,history:[]})}});
+module.exports=router;

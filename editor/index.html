@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OwnZ Forge AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101010;color:#eee;font-family:Arial,sans-serif}
+header{padding:16px;background:#1d1d1d;border-bottom:2px solid #f33434}
+header h2{color:#f33434;margin:0}
+header small{color:#aaa}
+main{padding:12px;max-width:1400px;margin:auto}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.panel{background:#191919;border:1px solid #713333;border-radius:9px;overflow:hidden;min-width:0}
+.panel-title{padding:12px;background:#242020;color:#ff5555;font-weight:bold}
+#tree{padding:8px;max-height:260px;overflow:auto}
+.tree-item{display:block;width:100%;background:transparent;border:0;color:#eee;text-align:left;padding:11px 8px;border-radius:5px;font-size:14px;cursor:pointer;overflow-wrap:anywhere}
+.tree-item:active,.tree-item.active{background:#512323}
+.tree-item.folder{color:#ffbd73}
+#editor{min-height:320px;overflow:hidden}
+#status{padding:10px 12px;color:#78df98;font-size:13px;overflow-wrap:anywhere}
+@media(min-width:750px){
+.workspace{grid-template-columns:260px minmax(0,1fr)}
+#tree{max-height:75vh}
+}
+</style>
+<style id="forge-tabs-style">
+#forge-tabs{
+  display:flex;
+  gap:4px;
+  overflow-x:auto;
+  padding:8px 8px 0;
+  background:#141414;
+  border-bottom:2px solid #6b2020;
+  scrollbar-width:thin;
+}
+.forge-tab{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:0 0 auto;
+  background:#292929;
+  color:#ccc;
+  border:1px solid #444;
+  border-bottom:0;
+  border-radius:7px 7px 0 0;
+  padding:10px 12px;
+  font-size:13px;
+  cursor:pointer;
+}
+.forge-tab.active{
+  background:#681e1e;
+  color:#fff;
+  border-color:#e03131;
+}
+.forge-tab-dirty{
+  color:#ffbd73;
+  font-weight:bold;
+}
+.forge-tab-close{
+  color:#aaa;
+  font-size:17px;
+  padding:0 3px;
+}
+</style>
+<style id="ownz-mobile-tab-close">@media(max-width:749px){.forge-tab-close{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:40px;touch-action:manipulation}}</style>
+
+<style id="ownz-phase8-mobile">
+#editor, #forge-tabs {
+  min-width: 0;
+  max-width: 100%;
+}
+#forge-tabs {
+  -webkit-overflow-scrolling: touch;
+}
+#editor .cm-editor,
+#editor .cm-panels {
+  max-width: 100%;
+}
+#editor .cm-scroller {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#editor .cm-panel.cm-search {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+#editor .cm-panel.cm-search input {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 38px;
+  font-size: 16px;
+}
+#editor .cm-panel.cm-search button {
+  min-height: 38px;
+  padding: 7px 11px;
+  border-radius: 6px;
+}
+#editor .cm-panel.cm-search label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+}
+#editor .cm-panel.cm-search input[type="checkbox"] {
+  width: 19px;
+  height: 19px;
+}
+@media (max-width:600px) {
+  #recovery-manager, #forge-find, #save-file {
+    min-height: 46px;
+    touch-action: manipulation;
+  }
+  #editor .cm-panel.cm-search input[name="search"],
+  #editor .cm-panel.cm-search input[name="replace"] {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+</style>
+
+
+<style id="OWNZ_PHASE8D_CSS">
+#forge-mobile-toolbar {
+  --forge-scroll-hint: 0;
+  box-shadow: inset calc(-4px * var(--forge-scroll-hint)) 0 0 #b52020;
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  padding:10px;
+  background:#171717;
+  border-top:1px solid #713333;
+  border-bottom:1px solid #713333;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+#forge-mobile-toolbar button {
+  flex:0 0 auto;
+  min-width:46px;
+  min-height:44px;
+  padding:8px 12px;
+  border:1px solid #854040;
+  border-radius:8px;
+  background:#292929;
+  color:#fff;
+  font-size:14px;
+  font-weight:600;
+  touch-action:manipulation;
+}
+#forge-mobile-toolbar button:active {
+  background:#b52020;
+}
+</style>
+
+<style>
+#forge-create-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+#forge-create-actions button {
+  flex: 1 1 135px;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #a43b3b;
+  border-radius: 8px;
+  background: #282020;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+#forge-new-file {
+  background: #a51e1e !important;
+}
+</style>
+<style id="ownz-phase8b-search-polish">
+@media (max-width: 749px) {
+  .cm-search {
+    position: relative !important;
+    box-sizing: border-box !important;
+    padding: 12px 16px !important;
+    padding-right: 44px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .cm-search button[name="close"] {
+    position: absolute !important;
+    top: 10px !important;
+    right: 8px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 5 !important;
+    cursor: pointer !important;
+  }
+
+  .cm-search input {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+  }
+}
+</style>
+
+<style id="ownz-phase8c-mobile-editor">
+@media (max-width: 749px) {
+  #editor {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  #editor .cm-editor {
+    width: 100%;
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  #editor .cm-content {
+    min-height: 300px;
+    padding: 12px 0;
+    caret-color: #ff5252;
+  }
+
+  #editor .cm-scroller {
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #editor .cm-line {
+    padding-right: 12px;
+  }
+
+  #editor .cm-gutters {
+    min-width: 38px;
+  }
+}
+</style>
+
+<style id="ownz-phase14-theme">
+:root {
+  color-scheme: dark;
+  --forge-red: #ed3038;
+  --forge-border: #713039;
+  --forge-text: #f1eeee;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% -15%, #54151c 0%, transparent 55%),
+    linear-gradient(180deg, #121113, #080809 75%);
+  color: var(--forge-text);
+}
+
+header {
+  background: linear-gradient(115deg, #09090b, #301014 65%, #10090b);
+  border-bottom: 2px solid var(--forge-red);
+  box-shadow: 0 6px 24px #0009;
+  padding: 20px 16px;
+}
+
+header h2 {
+  color: #ff444d;
+  font-size: clamp(22px, 5vw, 32px);
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px #e0203055;
+}
+
+header small {
+  display: block;
+  margin-top: 6px;
+  letter-spacing: 1.4px;
+}
+
+main {
+  padding: 14px;
+}
+
+.workspace {
+  gap: 16px;
+  align-items: start;
+}
+
+.panel {
+  background: linear-gradient(160deg, #1d1b1e, #101012);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px #0007;
+}
+
+.panel-title {
+  background: linear-gradient(90deg, #42151b, #211719);
+  border-bottom: 1px solid #753039;
+  color: #ff646b;
+  letter-spacing: 1px;
+}
+
+button {
+  font-family: inherit;
+  transition: background-color .15s, border-color .15s;
+}
+
+button:focus-visible {
+  outline: 2px solid #ff777d;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+#forge-create-actions {
+  padding: 0 10px;
+}
+
+#forge-create-actions button {
+  border-radius: 9px;
+  box-shadow: inset 0 1px #ffffff12;
+}
+
+#tree {
+  margin: 8px;
+  background: #0e0d0f;
+  border: 1px solid #392327;
+  border-radius: 9px;
+}
+
+.tree-item.active {
+  background: #542027;
+  border-left: 3px solid #ff424b;
+}
+
+#forge-tabs {
+  background: #0d0c0e;
+}
+
+.forge-tab.active {
+  background: linear-gradient(180deg, #79232d, #3c171c);
+}
+
+#editor {
+  background: #111113;
+}
+
+#status {
+  background: #141014;
+  border-top: 1px solid #482329;
+}
+
+@media (max-width: 749px) {
+  main {
+    padding: 9px;
+  }
+
+  .workspace {
+    gap: 12px;
+  }
+
+  header {
+    padding: 16px 12px;
+  }
+
+  #forge-create-actions button {
+    min-height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+}
+</style>
+
+
+<style id="ownz-official-background">
+html {
+  min-height: 100%;
+  background: #050202;
+}
+body {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.24),
+      rgba(0,0,0,.48)
+    ),
+    url('/images/ownz-forge-background.png') !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
+</style>
+
+
+<style id="ownz-cinematic-glass">
+/* SHOCKER OWNZ — CINEMATIC GLASS */
+section {
+  background: rgba(20, 8, 10, 0.55) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-color: rgba(255, 65, 65, 0.35) !important;
+}
+
+/* Keep code editing clear and readable */
+#editor,
+.cm-editor,
+.cm-scroller,
+.cm-content {
+  backdrop-filter: none !important;
+}
+
+.cm-editor,
+.cm-scroller {
+  background: #252934 !important;
+}
+
+/* Make the artwork visible between panels */
+section {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+</style>
+
+
+<style id="ownz-vault-inspired-theme">
+/* SHOCKER OWNZ — VAULT INSPIRED CINEMATIC THEME */
+:root {
+  --forge-red: #ef2635;
+  --forge-border: #68232c;
+  --forge-text: #f5f0f1;
+}
+
+header {
+  background: linear-gradient(115deg,#080708,#26090e 65%,#090607);
+  border-bottom: 2px solid #ef2635;
+  box-shadow: 0 8px 30px #000b,0 1px 18px #b5091933;
+}
+
+header h2 {
+  color: #fff1f1;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 0 #9e202a,0 0 24px #e51b344d;
+}
+
+.panel {
+  background: linear-gradient(155deg,rgba(27,19,22,.94),rgba(9,8,10,.95));
+  border: 1px solid #68232c;
+  box-shadow: 0 12px 32px #0009, inset 0 1px #ffffff0a;
+}
+
+.panel-title {
+  background: linear-gradient(90deg,#490d17,#180e11);
+  color: #ff6570;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+#editor,
+.cm-editor,
+.cm-scroller {
+  background: #100e10 !important;
+}
+
+#forge-tabs {
+  background: #0b090b;
+}
+
+.forge-tab.active {
+  background: linear-gradient(180deg,#a01929,#480e18);
+  box-shadow: inset 0 1px #ff697055;
+}
+
+button:not(:disabled):hover {
+  border-color: #ed3949;
+}
+
+button:focus-visible {
+  outline: 2px solid #ff626f;
+  outline-offset: 2px;
+}
+
+@media(max-width:749px) {
+  header h2 {
+    font-size: clamp(20px,5vw,28px);
+    letter-spacing: 1.5px;
+  }
+  .panel {
+    border-radius: 12px;
+  }
+}
+</style>
+
+
+<style id="ownz-branded-header-style">
+.ownz-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: linear-gradient(110deg,#050505,#22070b 75%,#080506);
+  border-bottom: 2px solid #e32636;
+}
+.ownz-brand-logo {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 0 22px #e3263640;
+}
+.ownz-brand-copy {
+  min-width: 0;
+}
+.ownz-brand-name {
+  font-size: clamp(21px,4.5vw,32px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #f5f2f2;
+  line-height: 1.15;
+}
+.ownz-brand-name span {
+  color: #f0525d;
+}
+.ownz-brand-tagline {
+  margin-top: 6px;
+  color: #a7a4af;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+.ownz-brand-studio {
+  margin-top: 8px;
+  color: #e9b7bc;
+  font-size: 10px;
+  letter-spacing: 1.3px;
+}
+@media(max-width:749px) {
+  .ownz-brand-header {
+    padding: 13px 12px;
+    gap: 11px;
+  }
+  .ownz-brand-logo {
+    width: 56px;
+    height: 56px;
+  }
+  .ownz-brand-name {
+    font-size: clamp(18px,5vw,25px);
+    letter-spacing: 1.7px;
+  }
+  .ownz-brand-tagline {
+    font-size: 8px;
+    letter-spacing: 1.4px;
+  }
+  .ownz-brand-studio {
+    font-size: 8px;
+    letter-spacing: .7px;
+  }
+}
+</style>
+
+<style id="ownz-mobile-stability-v1">
+/* OWNZ Forge Android touch and overflow safeguards: additive, no application logic changes. */
+@media (max-width: 749px) {
+  html, body { max-width: 100%; overflow-x: clip; }
+  main, .workspace, .panel, #editor { min-width: 0; max-width: 100%; }
+  #forge-mobile-toolbar { max-width: 100%; scroll-padding-inline: 12px; scrollbar-width: auto; }
+  #forge-mobile-toolbar button { min-height: 48px; min-width: 48px; white-space: nowrap; }
+  #forge-tabs { max-width: 100%; scroll-padding-inline: 8px; }
+  .forge-tab { min-height: 48px; }
+  .forge-tab-close { min-width: 40px; min-height: 44px; }
+  #editor .cm-editor, #editor .cm-scroller { min-width: 0; max-width: 100%; }
+  #ownz-ai-answer { max-width: 100%; overflow-wrap: anywhere; white-space: pre-wrap; }
+  #fatal-roles-manager, #fatal-role-list { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  #fatal-role-name, #fatal-role-instructions { max-width: 100%; font-size: 16px; }
+  button, input, textarea { touch-action: manipulation; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #forge-mobile-toolbar, #forge-tabs { scroll-behavior: auto; }
+}
+
+</style>
+</head>
+<body>
+<header class="ownz-brand-header">
+  <img class="ownz-brand-logo" src="/images/logo-mask.png" alt="Shocker OwnZ gas-mask logo">
+  <div class="ownz-brand-copy">
+    <div class="ownz-brand-name">SHOCKER <span>OWNZ</span></div>
+    <div class="ownz-brand-tagline">BUILT LIKE YOU OWN THE SHOW.</div>
+    <div class="ownz-brand-studio">OWNZ FORGE AI — DEVELOPMENT STUDIO</div>
+  </div>
+</header>
+<main>
+<div class="workspace">
+<section class="panel">
+
+<div class="panel-title" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+  <span>PROJECT EXPLORER</span>
+  <button id="ownz-explorer-toggle" type="button"
+    aria-expanded="true"
+    aria-controls="ownz-explorer-content"
+    style="background:#a32222;color:white;border:1px solid #ff5555;border-radius:8px;padding:10px 12px;font-weight:bold;min-height:44px">
+    − HIDE
+  </button>
+</div>
+<div id="ownz-explorer-content">
+
+
+<div id="forge-create-actions">
+<button id="forge-delete" type="button" style="background:#8b1515;color:white;border-color:#e04444">🗑 DELETE FILE</button>
+<button id="forge-rename" type="button">✏️ RENAME FILE</button>
+<button id="forge-refresh" type="button">↻ REFRESH</button>
+  <button id="forge-new-file" type="button">＋ NEW FILE</button>
+  <button id="forge-new-folder" type="button">＋ NEW FOLDER</button>
+</div>
+
+<section id="forge-trash-panel" style="margin:16px 0;padding:12px;border:1px solid #8b2020;border-radius:10px;background:#170d0d">
+  <div style="font-weight:bold;color:#ff6464;margin-bottom:10px">
+    🗑 TRASH & RECOVERY
+  </div>
+  <button id="forge-trash-refresh" type="button" style="width:100%;padding:12px;background:#461414;color:white;border:1px solid #a43b3b;border-radius:8px">
+    ↻ VIEW DELETED FILES
+  </button>
+  <div id="forge-trash-list" style="margin-top:12px;font-size:13px;overflow-wrap:anywhere">
+    Tap above to load deleted files.
+  </div>
+</section>
+<div id="tree">Loading ECHOBOUND...</div>
+
+<section id="ownz-intelligence-panel"
+  aria-label="Project Intelligence"
+  style="margin:12px 8px;padding:12px;background:#170d0d;border:1px solid #a52a2a;border-radius:10px;min-width:0">
+
+  <!-- OWNZ_PROJECT_BRAIN_V1: Read-only, no AI credits -->
+  <details id="ownz-project-brain" style="margin:0 0 12px;padding:10px;border:1px solid #a52a2a;border-radius:9px;background:#241818;max-width:100%;overflow-wrap:anywhere">
+    <summary style="cursor:pointer;color:#ff6666;font-weight:800;min-height:36px">🧠 FATALACIDBURN · PROJECT BRAIN</summary>
+    <p style="color:#bbb;font-size:12px">Verified source evidence · Read-only · No AI credits</p>
+    <button type="button" id="ownz-brain-refresh" style="width:100%;min-height:46px;background:#9c2424;color:#fff;border:0;border-radius:8px;font-weight:700">↻ REFRESH VERIFIED FILES</button>
+    <p id="ownz-brain-status" role="status" aria-live="polite" style="font-size:12px;color:#ccc">Not loaded</p>
+    <div id="ownz-brain-files" style="display:grid;gap:8px;min-width:0"></div>
+  </details>
+  <div style="color:#ff5555;font-weight:800;font-size:15px">
+    ⚡ PROJECT INTELLIGENCE
+  </div>
+
+  <p style="color:#aaa;font-size:12px;margin:7px 0">
+    Offline Godot project analysis
+  </p>
+
+  <button id="ownz-intelligence-refresh"
+    type="button"
+    style="width:100%;min-height:46px;background:#a32222;color:white;border:0;border-radius:8px;font-weight:700">
+    🔍 ANALYZE PROJECT
+  </button>
+
+  <div id="ownz-intelligence-status"
+    role="status"
+    aria-live="polite"
+    style="margin-top:10px;font-size:12px;color:#ccc;overflow-wrap:anywhere">
+    Ready to analyze ECHOBOUND.
+  </div>
+
+  <div id="ownz-intelligence-results"
+    style="display:grid;gap:9px;margin-top:12px;min-width:0">
+
+    <div style="padding:10px;background:#242020;border-radius:8px">
+      <div style="color:#aaa;font-size:11px">FILES SCANNED</div>
+      <strong id="ownz-intelligence-files" style="font-size:23px">—</strong>
+    </div>
+
+    <div style="padding:10px;background:#242020;border-radius:8px">
+      <div style="color:#aaa;font-size:11px">DEPENDENCIES</div>
+      <strong id="ownz-intelligence-deps" style="font-size:23px">—</strong>
+    </div>
+
+    <div style="padding:10px;background:#242020;border-radius:8px">
+      <div style="color:#aaa;font-size:11px">MISSING REFERENCES</div>
+      <strong id="ownz-intelligence-missing" style="font-size:23px">—</strong>
+    </div>
+
+
+    
+    <!-- OWNZ FORGE — LIVE UNSAVED-CODE DIAGNOSTICS -->
+    <div style="padding:12px;background:#1b1111;border:1px solid #a33333;border-radius:8px;min-width:0;margin-bottom:10px">
+      <div style="color:#ff7777;font-weight:800;font-size:13px">
+        ⚡ LIVE CODE DIAGNOSTICS
+      </div>
+      <p style="font-size:11px;color:#aaa;margin:6px 0">
+        Checks unsaved GDScript locally — no AI credits
+      </p>
+      <div style="display:flex;align-items:center;gap:10px">
+        <strong id="ownz-live-diagnostics-count"
+          style="font-size:25px;color:#fff">—</strong>
+        <span style="font-size:12px;color:#ccc">
+          Potential issues in active file
+        </span>
+      </div>
+      <div id="ownz-live-diagnostics-results"
+        aria-live="polite"
+        style="display:grid;gap:7px;margin-top:10px;font-size:12px;overflow-wrap:anywhere">
+        Open a GDScript file to begin.
+      </div>
+    </div>
+
+    
+    <!-- OWNZ FORGE — DIAGNOSTICS AI FIX SHORTCUT -->
+    <button id="ownz-live-ai-fix" type="button" disabled
+      style="width:100%;min-height:48px;margin:0 0 12px;
+      background:#a32222;color:#fff;border:1px solid #e34b4b;
+      border-radius:9px;font-weight:800;opacity:.6">
+      ⚡ ASK AI TO FIX DETECTED ISSUES
+    </button>
+
+    <!-- OWNZ FORGE — OFFLINE GODOT DIAGNOSTICS -->
+    <div style="padding:12px;background:#241515;border:1px solid #823333;border-radius:8px;min-width:0">
+
+      <div style="color:#ff6666;font-weight:800;font-size:13px">
+        ⚡ GDSCRIPT DIAGNOSTICS
+      </div>
+
+      <p style="font-size:11px;color:#aaa;margin:6px 0">
+        Offline heuristic warnings — not Godot compiler errors
+      </p>
+
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <strong id="ownz-diagnostics-count"
+          style="font-size:25px;color:#fff">—</strong>
+
+        <span style="font-size:12px;color:#ccc">
+          Potential issues detected
+        </span>
+      </div>
+
+      <div id="ownz-diagnostics-results"
+        aria-live="polite"
+        style="display:grid;gap:7px;margin-top:10px;font-size:12px;overflow-wrap:anywhere">
+        Run project analysis to check GDScript.
+      </div>
+
+    </div>
+
+    <div id="ownz-intelligence-details"
+      style="font-size:12px;color:#ddd;overflow-wrap:anywhere">
+      Analysis details will appear here.
+    </div>
+  </div>
+</section>
+
+
+</div>
+</section>
+<section class="panel">
+<div class="panel-title" id="filename">CODE EDITOR</div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px;flex-wrap:wrap">
+<button id="recovery-manager" type="button" style="background:#282828;color:#ffbd73;border:1px solid #a43b3b;border-radius:6px;padding:12px;font-weight:bold;cursor:pointer">↺ RECOVERY</button>
+<button id="forge-find" type="button" style="background:#282828;color:#fff;border:1px solid #a43b3b;border-radius:6px;padding:12px;font-weight:bold;cursor:pointer">🔎 FIND</button>
+<button id="ownz-go-to-line" type="button" style="background:#301515;color:#fff;border:1px solid #d62828;border-radius:6px;padding:12px;font-weight:bold;min-height:44px">🎯 GO TO LINE</button>
+<button id="ownz-function-nav" type="button" style="background:#301515;color:#fff;border:1px solid #d62828;border-radius:6px;padding:12px;font-weight:bold;min-height:44px">🧭 FUNCTIONS</button>
+<button id="ownz-wrap-toggle" type="button" aria-pressed="false" style="background:#282828;color:#fff;border:1px solid #a43b3b;border-radius:6px;padding:12px;font-weight:bold;min-height:44px">↩ WRAP OFF</button>
+<button id="ownz-version-history" type="button" style="background:#301515;color:#fff;border:1px solid #d62828;border-radius:6px;padding:12px;font-weight:bold;min-height:44px">🕒 VERSION HISTORY</button>
+<button id="save-file" type="button" style="background:#d62828;color:white;border:0;border-radius:6px;padding:12px 22px;font-weight:bold;font-size:15px;cursor:pointer">💾 SAVE FILE</button>
+<span id="save-indicator" style="color:#78df98;font-size:13px">All changes saved</span>
+</div>
+
+<section id="ownz-function-panel" hidden style="margin:12px 10px;padding:14px;background:#120909;color:#fff;border:2px solid #a32222;border-radius:12px;box-sizing:border-box"><h3 style="color:#ff5757;margin:0 0 10px">🧭 FUNCTION NAVIGATOR</h3><input id="ownz-function-search" type="search" placeholder="Search functions..." aria-label="Search functions" style="width:100%;box-sizing:border-box;padding:12px;min-height:44px;background:#202020;color:#fff;border:1px solid #a43b3b;border-radius:6px"><div id="ownz-function-results" aria-live="polite" style="margin-top:12px;max-height:320px;overflow-y:auto">Open a GDScript file to view functions.</div></section>
+<section id="ownz-recovery-center" hidden
+  style="margin:12px 10px;padding:14px;background:#120909;color:#fff;border:2px solid #a32222;border-radius:12px;max-width:100%;box-sizing:border-box">
+
+  <h3 style="color:#ff5757;margin:0 0 8px">
+    🛡️ OWNZ RECOVERY CENTER
+  </h3>
+  <a href="http://127.0.0.1:3004/" target="_blank" rel="noopener noreferrer" style="display:inline-block;min-height:44px;padding:12px;margin:6px 0;background:#9c1d32;color:white;border-radius:8px;font-weight:800;text-decoration:none">🛡 OPEN INSTALLER RECOVERY DASHBOARD ↗</a>
+  <p style="color:#bcbcbc;font-size:12px">Requires the local Recovery Dashboard service on port 3004.</p>
+
+  <p id="ownz-history-file"
+    style="font-size:12px;color:#bbb;overflow-wrap:anywhere">
+    Select a file to view its history.
+  </p>
+
+  <div id="ownz-history-list"
+    style="display:grid;gap:8px;margin:12px 0">
+  </div>
+
+  <div id="ownz-history-preview" hidden
+    style="background:#090909;border:1px solid #733;border-radius:8px;padding:12px;margin:10px 0">
+
+    <strong style="color:#ff7777">SAVED CODE PREVIEW</strong>
+
+    <pre id="ownz-history-code"
+      style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;font-size:12px"></pre>
+
+    <button id="ownz-history-restore" type="button" disabled
+      style="width:100%;min-height:48px;background:#a32222;color:white;border:0;border-radius:8px;font-weight:bold">
+      ↺ RESTORE TO EDITOR
+    </button>
+  </div>
+
+  <button id="ownz-history-close" type="button"
+    style="width:100%;min-height:44px;margin-top:8px;background:#292929;color:white;border:1px solid #666;border-radius:8px">
+    ✕ CLOSE RECOVERY CENTER
+  </button>
+</section>
+
+<div id="forge-tabs" role="tablist" aria-label="Open files"></div>
+
+<div id="forge-mobile-toolbar" role="toolbar" aria-label="Mobile coding shortcuts">
+  <button type="button" data-forge-action="undo">↶ Undo</button>
+  <button type="button" data-forge-action="redo">↷ Redo</button>
+  <button type="button" data-forge-action="tab">⇥ Tab</button>
+  <button type="button" data-forge-pair="()">()</button>
+  <button type="button" data-forge-pair="{}">{}</button>
+  <button type="button" data-forge-pair="[]">[]</button>
+  <button type="button" data-forge-pair='""'>""</button>
+  <button type="button" data-forge-pair="''">''</button>
+  <button type="button" data-forge-insert=":">:</button>
+  <button type="button" data-forge-insert="=">=</button>
+  <button type="button" data-forge-insert="->">→</button>
+</div>
+
+<div id="editor"></div>
+<div id="status" role="status">Editor ready</div>
+<section id="ownz-ai-panel" style="margin:16px 0;padding:16px;background:#170909;border:1px solid #9e2424;border-radius:12px">
+  <h2 style="color:#ff5757;margin:0 0 8px">⚡ OWNZ FORGE AI</h2>
+  <p style="font-size:13px;color:#ccc">Your personal coding assistant</p>
+  <textarea id="ownz-ai-prompt" placeholder="Ask about bugs, code, or improvements..." style="width:100%;box-sizing:border-box;min-height:90px;background:#101010;color:white;border:1px solid #994040;border-radius:8px;padding:12px"></textarea>
+  <label style="display:block;color:#ddd;margin:10px 0">
+    <input id="ownz-ai-include-code" type="checkbox" checked>
+    Include current editor code
+  </label>
+  <button id="ownz-ai-ask" type="button" style="width:100%;padding:13px;background:#a32222;color:white;border:0;border-radius:8px;font-weight:bold">⚡ ASK OWNZ AI</button>
+<button id="ownz-ai-analyze" type="button" style="width:100%;margin-top:8px;min-height:44px">🔍 ANALYZE CURRENT FILE</button>
+  
+<div id="ownz-ai-fix-controls" style="margin-top:12px">
+  <button id="ownz-ai-fix" type="button"
+    style="width:100%;min-height:48px;background:#a32222;color:white;border:0;border-radius:8px;font-weight:bold">
+    ⚡ GENERATE CODE FIX
+  </button>
+
+  <div id="ownz-ai-fix-preview" hidden
+    style="margin-top:10px;padding:12px;background:#101010;color:#eee;border:1px solid #994040;border-radius:8px">
+    <strong>PROPOSED CODE CHANGES</strong>
+    <section id="ownz-ai-diff" hidden style="margin:12px 0;padding:12px;background:#130909;border:1px solid #a32222;border-radius:10px;max-width:100%;box-sizing:border-box">
+<h3 style="color:#ff5757;margin:0 0 10px">⚡ OWNZ AI CHANGE INSPECTOR</h3>
+<div id="ownz-ai-diff-summary" role="status" style="font-size:13px;color:#ddd;margin-bottom:10px">Waiting for comparison...</div>
+<div id="ownz-ai-diff-lines" style="display:grid;gap:3px;max-height:360px;overflow:auto;font-family:monospace;font-size:12px"></div>
+</section>
+<pre id="ownz-ai-fix-code"
+      style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:350px;overflow:auto;font-size:12px"></pre>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button id="ownz-ai-approve" type="button" disabled
+        style="flex:1;min-height:48px;background:#236b36;color:white;border:0;border-radius:8px">
+        ✓ APPROVE FIX
+      </button>
+      <button id="ownz-ai-reject" type="button" disabled
+        style="flex:1;min-height:48px;background:#702020;color:white;border:0;border-radius:8px">
+        ✕ REJECT FIX
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- PHASE 37 — FATALACIDBURN PROFESSIONAL ROLES -->
+  <section id="fatal-roles-manager"
+    style="margin-top:16px;padding:14px;background:#110808;border:1px solid #a32222;border-radius:12px">
+    <h3 style="color:#ff5757;margin:0 0 8px">⚡ PROFESSIONAL ROLES</h3>
+    <p style="font-size:12px;color:#ccc">Assign permanent specialties to FatalAcidBurn.</p>
+
+    <label for="fatal-role-name" style="display:block;margin:10px 0 5px;color:#eee">Role name</label>
+    <input id="fatal-role-name" maxlength="100"
+      placeholder="Senior Godot Game Developer"
+      style="width:100%;box-sizing:border-box;padding:12px;background:#101010;color:white;border:1px solid #994040;border-radius:8px">
+
+    <label for="fatal-role-instructions" style="display:block;margin:10px 0 5px;color:#eee">Professional instructions</label>
+    <textarea id="fatal-role-instructions" maxlength="3000"
+      placeholder="Describe FatalAcidBurn's responsibilities and expertise..."
+      style="width:100%;box-sizing:border-box;min-height:110px;padding:12px;background:#101010;color:white;border:1px solid #994040;border-radius:8px"></textarea>
+
+    <button id="fatal-role-save" type="button"
+      style="width:100%;min-height:48px;margin-top:10px;background:#a32222;color:white;border:0;border-radius:8px;font-weight:bold">⚡ SAVE PROFESSIONAL ROLE</button>
+
+    <button id="fatal-role-refresh" type="button"
+      style="width:100%;min-height:44px;margin-top:8px;background:#292020;color:white;border:1px solid #994040;border-radius:8px">↻ REFRESH ROLES</button>
+
+    <div id="fatal-role-status" role="status" aria-live="polite"
+      style="margin:10px 0;color:#ddd;font-size:13px">Loading roles...</div>
+
+    <div id="fatal-role-list" style="display:grid;gap:9px"></div>
+  </section>
+
+  <div id="ownz-ai-answer" role="status" aria-live="polite" style="margin-top:12px;padding:12px;background:#0d0d0d;color:#eee;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere">AI assistant ready. Enter a question above.</div>
+</section>
+
+
+</section>
+</div>
+</main>
+<script type="module" src="/src/main.js"></script>
+
+<script>
+(() => {
+  const button = document.getElementById('ownz-explorer-toggle');
+  const content = document.getElementById('ownz-explorer-content');
+  if (!button || !content) return;
+
+  const key = 'ownz-explorer-collapsed-v1';
+
+  function setExpanded(expanded) {
+    content.hidden = !expanded;
+    button.setAttribute('aria-expanded', String(expanded));
+    button.textContent = expanded ? '− HIDE' : '+ SHOW';
+  }
+
+  try {
+    setExpanded(localStorage.getItem(key) !== 'true');
+  } catch {
+    setExpanded(true);
+  }
+
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    setExpanded(!expanded);
+    try {
+      localStorage.setItem(key, String(expanded));
+    } catch {
+      // Toggle still works if browser storage is unavailable.
+    }
+  });
+})();
+</script>
+
+<!-- OWNZ_WORKSPACE_V2 -->
+<link rel="stylesheet" href="/ownz-workspace-v2.css">
+<script src="/ownz-workspace-v2.js" defer></script>
+<!-- OWNZ_FOCUS_V1 -->
+<link rel="stylesheet" href="/ownz-focus-v1.css">
+<script src="/ownz-focus-v1.js" defer></script>
+<!-- OWNZ_AI_FORMAT_V1 -->
+<link rel="stylesheet" href="/ownz-ai-format-v1.css">
+<script src="/ownz-ai-format-v1.js" defer></script>
+<!-- OWNZ_CHAT_RECOVERY_V1 -->
+<link rel="stylesheet" href="/ownz-chat-recovery-v1.css">
+<script src="/ownz-chat-recovery-v1.js" defer></script>
+<!-- OWNZ_CHAT_WORKSPACE_V2 -->
+<link rel="stylesheet" href="/ownz-chat-workspace-v2.css">
+<script src="/ownz-chat-workspace-v2.js" defer></script>
+<!-- OWNZ_STUDIO_THEME_V1 -->
+<link rel="stylesheet" href="/ownz-studio-v1.css">
+<script src="/ownz-studio-v1.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V2 -->
+<link rel="stylesheet" href="/ownz-studio-2026-v2.css">
+<script src="/ownz-studio-2026-v2.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V3 -->
+<link rel="stylesheet" href="/forge-studio-2026/forge-studio-v3.css">
+<script src="/forge-studio-2026/forge-studio-v3.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V4 -->
+<link rel="stylesheet" href="/ownz-studio-v4.css">
+<script src="/ownz-studio-v4.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V5 -->
+<link rel="stylesheet" href="/ownz-studio-v5.css">
+<script src="/ownz-studio-v5.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V6 -->
+<link rel="stylesheet" href="/ownz-studio-v6.css">
+<script src="/ownz-studio-v6.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V7 -->
+<link rel="stylesheet" href="/ownz-studio-v7.css">
+<script src="/ownz-studio-v7.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V8 -->
+<link rel="stylesheet" href="/ownz-studio-v8.css">
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V9 -->
+<link rel="stylesheet" href="/ownz-studio-v9.css">
+<script src="/ownz-studio-v9.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V10 -->
+<link rel="stylesheet" href="/ownz-studio-v10.css">
+<script src="/ownz-studio-v10.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V11 -->
+<link rel="stylesheet" href="/ownz-studio-v11.css">
+<script src="/ownz-studio-v11.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V12_DESIGN_SYSTEM -->
+<link rel="stylesheet" href="/ownz-design-system-v12.css">
+<script src="/ownz-design-system-v12.js" defer></script>
+<!-- SHOCKER_OWNZ_FORGE_STUDIO_2026_V13_SHELL -->
+<link rel="stylesheet" href="/ownz-studio-v13.css">
+<script src="/ownz-studio-v13.js" defer></script>
+<script src="/ownz-tile-navigation-fix.js" defer></script>
+<!-- OWNZ_INSTALLER_UI_V2 -->
+<script src="/ownz-installer-v2.js" defer></script>
+<script src="/ownz-terminal-ui.js"></script>
+<script src="/ownz-terminal-v8.js"></script>
+<!-- FATALACIDBURN_COMMAND_CENTER_V93 -->
+<link rel="stylesheet" href="/ownz-fab-command-v93.css">
+<script src="/ownz-fab-command-v93.js" defer></script>
+<!-- OWNZ_MOBILE_TOOLS_V94 -->
+
+<link rel="stylesheet" href="/ownz-mobile-tools-v95.css">
+<script defer src="/ownz-mobile-tools-v95.js"></script>
+<!-- OWNZ_AUTOSYNC_UI_V21 -->
+<link rel="stylesheet" href="/ownz-autosync-v21.css">
+<script defer src="/ownz-autosync-v21.js"></script>
+<!-- OWNZ_AUTOPILOT_GUARDED_V1 -->
+<link rel="stylesheet" href="/autopilot-ui.css">
+<script src="/autopilot-ui.js" defer></script>
+<!-- OWNZ_AUTOPILOT_PREFLIGHT_V11 -->
+<link rel="stylesheet" href="/ownz-preflight-v11.css">
+<script defer src="/ownz-preflight-v11.js"></script>
+<!-- OWNZ_TEST_LAB_V12 -->
+<script src="/ownz-test-lab-v12.js" defer></script>
+<script src="/ownz-execution-dashboard-v15.js" defer></script>
+<script defer src="/ownz-health-v58.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+const {test}=require("node:test");
+const {strictEqual}=require("node:assert");
+const {analyzeScript}=require("../godot-diagnostics");
+test("duplicates",()=>strictEqual(analyzeScript(["func run():","func run():"].join(String.fromCharCode(10))).warnings[0].rule,"duplicate-function"));
+test("nested class isolation",()=>strictEqual(analyzeScript(["class A:"," class B:","  func run():","class C:"," class B:","  func run():"].join(String.fromCharCode(10))).warningCount,0));
+test("static duplicates",()=>strictEqual(analyzeScript(["static func run():","static func run():"].join(String.fromCharCode(10))).warnings[0].rule,"duplicate-function"));
+test("comments ignored",()=>strictEqual(analyzeScript(["func run():","# func run():"].join(String.fromCharCode(10))).warningCount,0));
+test("multiline strings",()=>{const q=String.fromCharCode(34).repeat(3);const s=["func run():","var x = "+q,"func run():",q].join(String.fromCharCode(10));strictEqual(analyzeScript(s).warningCount,0)});
+test("global scope reset",()=>strictEqual(analyzeScript(["class A:"," func run():","func run():"].join(String.fromCharCode(10))).warningCount,0));
+test("comments preserve scope",()=>strictEqual(analyzeScript(["class A:"," func run():","# comment"," func run():"].join(String.fromCharCode(10))).warnings[0].rule,"duplicate-function"));
+test("blank lines preserve scope",()=>strictEqual(analyzeScript(["class A:"," func run():",""," func run():"].join(String.fromCharCode(10))).warnings[0].rule,"duplicate-function"));

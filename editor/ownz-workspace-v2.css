@@ -1,0 +1,10 @@
+/* OWNZ Forge Mobile Workspace V2 */
+@media(max-width:749px){
+  body{padding-bottom:76px!important}
+  #ownz-workspace-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 8px max(8px,env(safe-area-inset-bottom));background:#170909;border-top:2px solid #b32b2b;box-shadow:0 -4px 20px #0009}
+  #ownz-workspace-nav button{min-width:0;min-height:48px;padding:8px 2px;background:#321414;color:#fff;border:1px solid #9c3333;border-radius:9px;font-size:13px;font-weight:700;touch-action:manipulation}
+  #ownz-workspace-nav button:focus-visible{outline:3px solid #ff7777}
+  #ownz-intelligence-panel{scroll-margin-top:15px}
+  #editor,#ownz-ai-panel,#ownz-explorer-content{scroll-margin-top:15px}
+}
+@media(min-width:750px){#ownz-workspace-nav{display:none}}

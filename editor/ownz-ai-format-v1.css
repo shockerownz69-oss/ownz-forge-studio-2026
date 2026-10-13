@@ -1,0 +1,15 @@
+/* FatalAcidBurn V2 responsive Markdown and code blocks */
+#ownz-ai-answer.ownz-ai-formatted{white-space:normal!important;line-height:1.5}
+#ownz-ai-answer .ownz-ai-heading{font-weight:800;color:#ff8585;margin:12px 0 5px}
+#ownz-ai-answer .ownz-ai-list{padding-left:10px;margin:3px 0}
+#ownz-ai-answer .ownz-ai-blank{height:8px}
+#ownz-ai-answer .ownz-ai-inline-code{background:#301919;color:#ffb4b4;border-radius:4px;padding:1px 4px;font-size:.9em;overflow-wrap:anywhere}
+#ownz-ai-answer .ownz-ai-code{margin:10px 0;border:1px solid #783434;border-radius:9px;overflow:hidden;background:#080808;min-width:0;max-width:100%}
+#ownz-ai-answer .ownz-ai-code-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;background:#281010;padding:7px 9px;font-size:12px;color:#ffc4c4}
+#ownz-ai-answer .ownz-ai-code-actions{display:flex;flex-wrap:wrap;gap:6px}
+#ownz-ai-answer .ownz-ai-code-actions button{min-height:36px;background:#922222;color:#fff;border:0;border-radius:6px;padding:6px 9px;font-size:12px}
+#ownz-ai-answer .ownz-ai-code-actions button[aria-pressed=true]{background:#5b3939}
+#ownz-ai-answer .ownz-ai-code pre{overflow-x:auto;white-space:pre;max-width:100%;margin:0;padding:11px;font-size:12px;line-height:1.5;-webkit-overflow-scrolling:touch}
+#ownz-ai-answer .ownz-ai-code pre.ownz-ai-wrap{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+#ownz-ai-answer .ownz-ai-line{overflow-wrap:anywhere}
+@media(max-width:420px){#ownz-ai-answer .ownz-ai-code-bar{font-size:11px}#ownz-ai-answer .ownz-ai-code-actions button{font-size:11px;padding:5px 7px}}

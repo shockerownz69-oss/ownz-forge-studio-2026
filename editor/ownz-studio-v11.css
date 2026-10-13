@@ -1,0 +1,28 @@
+/* V11 SHOCKER OWNZ // BLACKSITE HUD */
+body.ownz-v11{--v11-crimson:#ff315c;--v11-steel:#111018}
+body.ownz-v11 .ownz-v10-dashboard{gap:9px!important}
+body.ownz-v11 .ownz-v9-command{background:linear-gradient(105deg,#2b0c1a,#080910 70%)!important;box-shadow:inset 0 1px #fa698c66,0 5px 16px #0008!important}
+body.ownz-v11 .ownz-v10-hero{border:1px solid #cf3054!important;box-shadow:0 0 18px #d9284230,inset 0 0 20px #000a!important}
+body.ownz-v11 .ownz-v8-mission{background:linear-gradient(140deg,#200b17,#090a10 65%)!important}
+body.ownz-v11 .v7-stat{clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,0 100%)!important;box-shadow:inset 0 2px #ff436d75!important}
+body.ownz-v11 .v7-stat::after{width:26px!important;height:3px!important;box-shadow:0 0 12px #ff315c!important}
+body.ownz-v11 .ownz-v10-actionbar{position:relative!important;gap:7px!important;background:linear-gradient(110deg,#1d0b17,#0a0910)!important}
+body.ownz-v11 .ownz-v10-actionbar>button{background:linear-gradient(150deg,#351021,#120e17)!important;color:#ffe8ee!important;border:1px solid #aa3857!important;box-shadow:inset 0 1px #ff98af48,0 3px 8px #0007!important;font-weight:650!important}
+body.ownz-v11 .ownz-v10-actionbar>button:active{background:#ab1b41!important;transform:translateY(1px)}
+body.ownz-v11 #save-file{background:linear-gradient(120deg,#e72b54,#911634)!important;border-color:#ff6480!important}
+body.ownz-v11 #ownz-v10-tools{background:linear-gradient(120deg,#6c1735,#260e20)!important}
+body.ownz-v11 .ownz-v10-secondary{order:4!important}
+body.ownz-v11 .ownz-v10-tools-open .ownz-v10-secondary{display:inline-flex!important;align-items:center!important;justify-content:center!important;background:linear-gradient(140deg,#321022,#100e16)!important;color:#ffe6ed!important;border:1px solid #bd3859!important;border-radius:3px!important;opacity:1!important;filter:none!important;min-height:39px!important;padding:7px 12px!important;font-size:12px!important;text-shadow:none!important}
+body.ownz-v11 .ownz-v10-tools-open .ownz-v10-secondary:disabled{opacity:.5!important}
+body.ownz-v11 .ownz-v10-filetitle{font-size:12px!important;padding:7px 11px!important}
+body.ownz-v11 .ownz-v10-tabs{padding:2px 5px!important;min-height:0!important}
+body.ownz-v11 .ownz-v10-tabs [role=tab]{padding:5px 10px!important;min-height:32px!important}
+body.ownz-v11 .ownz-v10-shortcuts{padding:3px!important}
+body.ownz-v11 .ownz-v10-shortcuts button{min-height:33px!important}
+body.ownz-v11 #editor,body.ownz-v11 .cm-editor{min-height:65vh!important}
+body.ownz-v11 .ownz-v10-editor-panel{border-color:#be3556!important}
+body.ownz-v11 .ownz-v10-editor-panel:focus-within{box-shadow:inset 0 1px #ff9bac66,0 0 18px #ef2e5029!important}
+body.ownz-v11 #ownz-workspace-nav{background:linear-gradient(180deg,#250a1b,#0a0810)!important;box-shadow:0 -8px 22px #0009!important}
+body.ownz-v11 #ownz-workspace-nav button[aria-current=page],body.ownz-v11 #ownz-workspace-nav button.active{box-shadow:inset 0 2px #ff4770,0 0 12px #ff315c44!important}
+@media(max-width:749px){body.ownz-v11 .ownz-v10-actionbar{padding:5px!important}body.ownz-v11 .ownz-v10-actionbar>button{min-height:36px!important;padding:6px 9px!important}body.ownz-v11 .ownz-v10-tools-open .ownz-v10-secondary{min-height:36px!important}body.ownz-v11 .ownz-v10-hero{height:132px!important;min-height:132px!important;max-height:132px!important}body.ownz-v11 .v7-mission-head{margin-bottom:4px!important}body.ownz-v11 .v7-title{font-size:19px!important}}
+@media(prefers-reduced-motion:reduce){body.ownz-v11 *{transition:none!important;animation:none!important}}

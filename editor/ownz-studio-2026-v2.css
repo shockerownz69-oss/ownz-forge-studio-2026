@@ -1,0 +1,49 @@
+/* SHOCKER OWNZ FORGE Studio 2026 — modern industrial UI layer */
+:root{--forge-surface:#101015;--forge-surface-2:#17171e;--forge-accent:#ed2445;--forge-border:#34313b;--forge-text:#f5f3f5}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;background:radial-gradient(ellipse at 8% 0%,#310b17 0%,transparent 36%),#09090d!important;color:var(--forge-text)}
+.ownz-brand-header{min-height:104px!important;padding:16px clamp(14px,3vw,38px)!important;border-top:0!important;border-bottom:1px solid #5b1a2b!important;box-shadow:0 6px 22px #0007!important;background:linear-gradient(95deg,#0d0a0e 0%,#171016 65%,#0b090e)!important}
+.ownz-brand-header::before{opacity:.36!important;width:min(38%,330px)!important}
+.ownz-brand-logo{width:62px!important;height:62px!important;border:1px solid #9b233a!important;border-radius:13px!important;box-shadow:0 0 20px #ed244533!important}
+.ownz-brand-copy{border-left:0!important;background:transparent!important;padding:0!important}
+.ownz-brand-name{font-size:clamp(22px,3vw,36px)!important;font-style:normal!important;font-weight:900!important;letter-spacing:-.8px!important;text-shadow:none!important;line-height:1.05}
+.ownz-brand-studio{font-size:11px!important;letter-spacing:1.6px!important;font-weight:800!important;color:#ff526b!important;margin-top:6px}
+.ownz-brand-tagline{font-size:10px!important;letter-spacing:1.1px!important;color:#a8a2a9!important;margin-top:4px}
+.ownz-studio-nav{padding:7px 14px!important;background:#111015!important;border-bottom:1px solid #2f2029!important;gap:5px!important;box-shadow:none!important}
+.ownz-studio-nav button{flex:0 1 auto!important;min-height:36px!important;max-width:none!important;border:1px solid transparent!important;background:transparent!important;border-radius:8px!important;font-size:11px!important;padding:7px 14px!important;color:#c3bcc6!important;letter-spacing:.3px!important}
+.ownz-studio-nav button:first-child{background:#4b1423!important;color:#fff!important;box-shadow:none!important;border-color:#74263a!important}
+main{max-width:1600px!important;padding:12px!important}
+.workspace{gap:10px!important}
+.panel,#ownz-ai-panel,#fatal-roles-manager{background:#141319!important;border:1px solid #302b35!important;border-radius:12px!important;box-shadow:0 6px 18px #0005!important;overflow:hidden}
+.panel-title{padding:10px 13px!important;background:#1b1920!important;color:#eee4e9!important;border-bottom:1px solid #352a35!important;letter-spacing:.8px!important;font-size:11px!important;font-weight:850!important;text-shadow:none!important}
+#tree{max-height:48vh!important}
+.tree-item{padding:8px 10px!important;min-height:35px!important;font-size:12px!important;border-radius:7px!important}
+.tree-item.active{background:#4d1828!important}
+#forge-tabs{padding:5px 6px 0!important;gap:3px!important;background:#121116!important;border-bottom:1px solid #3d2530!important}
+.forge-tab{border-radius:7px 7px 0 0!important;padding:8px 10px!important;font-size:12px!important;background:#1d1b22!important;border-color:#2e2a33!important}
+.forge-tab.active{background:#3a1825!important;border-color:#7d2d40!important}
+#editor,.cm-editor,.cm-scroller{background:#101015!important}
+#status{font-size:12px!important;padding:8px 10px!important}
+#forge-mobile-toolbar{background:#141319!important;border-color:#302b35!important;gap:5px!important}
+#forge-mobile-toolbar button{border-radius:7px!important;box-shadow:none!important;font-size:12px!important}
+#ownz-workspace-nav{border-top:1px solid #5a2333!important;background:#100f15!important;box-shadow:0 -5px 18px #0009!important;padding:5px!important;gap:4px!important}
+#ownz-workspace-nav button{border:1px solid transparent!important;border-radius:9px!important;background:transparent!important;color:#a9a0aa!important;font-weight:700!important;box-shadow:none!important}
+#ownz-workspace-nav button.ownz-studio-active,#ownz-workspace-nav button[aria-pressed=true]{background:#511525!important;color:#fff!important;border-color:#8b2d44!important}
+#ownz-workspace-nav button:focus-visible{outline:2px solid #ff6279!important;outline-offset:-2px}
+button{transition:background-color .12s,border-color .12s,color .12s!important}
+@media(min-width:1050px){.workspace{grid-template-columns:minmax(220px,250px) minmax(0,1fr)!important}}
+@media(max-width:749px){
+ .ownz-brand-header{min-height:79px!important;padding:10px 12px!important;gap:10px!important}
+ .ownz-brand-logo{width:46px!important;height:46px!important;border-radius:9px!important}
+ .ownz-brand-name{font-size:21px!important;letter-spacing:-.5px!important}
+ .ownz-brand-studio{font-size:9px!important;letter-spacing:.5px!important;margin-top:3px!important}
+ .ownz-brand-tagline{font-size:8px!important;letter-spacing:.3px!important}
+ .ownz-studio-nav{display:none!important}
+ main{padding:7px!important}
+ .workspace{gap:8px!important}
+ #forge-mobile-toolbar{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:thin!important;padding:6px!important}
+ #forge-mobile-toolbar button{flex:0 0 auto!important;min-width:43px!important;min-height:39px!important;padding:6px 9px!important}
+ #tree{max-height:35vh!important}
+ .panel-title{padding:9px 11px!important}
+ #ownz-workspace-nav button{font-size:11px!important;min-width:0!important;padding:8px 2px!important}
+}
+@media(prefers-reduced-motion:reduce){button{transition:none!important}}

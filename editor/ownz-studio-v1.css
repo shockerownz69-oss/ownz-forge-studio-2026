@@ -1,0 +1,33 @@
+/* Shocker OwnZ Development Studio — non-destructive theme V1 */
+:root{--ownz-red:#e32031;--ownz-edge:#a31c2d;--ownz-glow:#fa263e;--ownz-ink:#080609}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 12% 12%,#4c0712 0%,transparent 37%),radial-gradient(ellipse at 91% 46%,#3d0711 0%,transparent 35%),repeating-linear-gradient(135deg,#10080b 0px,#10080b 18px,#15090e 19px,#10080b 21px);color:#f5edf0}
+.ownz-brand-header{position:relative;isolation:isolate;min-height:145px;display:flex;align-items:center;gap:18px;padding:22px clamp(16px,4vw,50px);background:linear-gradient(90deg,#050407 0%,#13070b 65%,#080406 100%);border-top:2px solid #eb1b2c;border-bottom:3px solid #e62b38;box-shadow:0 8px 26px #000d,0 0 20px #c50c2860;overflow:hidden}
+.ownz-brand-header::before{content:"";position:absolute;inset:0 auto 0 0;width:min(42%,390px);z-index:-1;background:linear-gradient(90deg,transparent 50%,#0b0509 100%),url('/shocker-mask-art.webp') left center/cover no-repeat;opacity:.62}
+.ownz-brand-header::after{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 6px,#ff273608 7px 8px);pointer-events:none}
+.ownz-brand-logo{border:2px solid #ed2638;box-shadow:0 0 0 3px #17090c,0 0 24px #fa193eaa;width:80px;height:80px;object-fit:cover;background:#12070a}
+.ownz-brand-copy{padding:8px 12px;background:#090509a6;border-left:2px solid #d92336;backdrop-filter:blur(2px)}
+.ownz-brand-name{font-style:italic;font-size:clamp(25px,4.1vw,53px);letter-spacing:1px;text-shadow:2px 3px 0 #4d0811,0 0 24px #e9243e90}
+.ownz-brand-name span{color:#f22638}
+.ownz-brand-tagline{color:#f1c9cf;letter-spacing:2px;font-weight:700}
+.ownz-brand-studio{color:#ff5c6b;letter-spacing:2.3px}
+.ownz-studio-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;padding:8px max(12px,calc((100vw - 1380px)/2));background:linear-gradient(#1b1014,#070608);border-bottom:2px solid #af1e30;box-shadow:0 5px 17px #000b}
+.ownz-studio-nav button{flex:1 1 125px;max-width:230px;min-height:49px;border:1px solid #76212d;border-radius:5px;background:linear-gradient(180deg,#26141a,#0c090c);color:#f9edf0;font-weight:800;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+.ownz-studio-nav button:first-child,.ownz-studio-nav button:focus-visible{background:linear-gradient(180deg,#e82437,#8d0d1e);border-color:#ff6d79;box-shadow:inset 0 1px #fff5,0 0 18px #ed193b66}
+.ownz-studio-nav button:hover{border-color:#ff5265;background:linear-gradient(180deg,#75202b,#1c0b12)}
+main{max-width:1500px;padding:clamp(9px,1.8vw,22px)}
+.workspace{gap:clamp(10px,1.4vw,20px)}
+.panel,#ownz-ai-panel,#fatal-roles-manager{border:1px solid #9e2435!important;background:linear-gradient(145deg,#200d13ee,#08070aee)!important;box-shadow:inset 0 0 0 1px #ff496512,0 8px 25px #000a,0 0 13px #ad14252b;border-radius:9px!important}
+.panel-title{background:linear-gradient(90deg,#5a101f,#1a0b11 75%,#360c16)!important;border-bottom:1px solid #d52a3e;color:#ff6675!important;text-shadow:0 0 12px #f1213960;text-transform:uppercase;letter-spacing:1px}
+#forge-tabs,#forge-mobile-toolbar{border-color:#a51e30!important;background:#0b080c!important}
+.forge-tab.active{background:linear-gradient(#a7182c,#3b0c17)!important;border-color:#ef3648!important}
+#editor,.cm-editor,.cm-scroller{background:#0a090d!important}
+#ownz-ai-answer{border:1px solid #5c2630;background:#0a090b!important}
+#ownz-ai-panel button,#forge-create-actions button{box-shadow:inset 0 1px #ffffff18}
+button{transition:border-color .12s ease,box-shadow .12s ease}
+button:focus-visible{outline:2px solid #ff6876;outline-offset:2px}
+#ownz-workspace-nav{border-top:2px solid #ed2a41!important;background:linear-gradient(#1a0b11,#070507)!important;box-shadow:0 -8px 24px #000c,0 0 17px #ee1b3430!important}
+#ownz-workspace-nav button{border-color:#922638!important;background:linear-gradient(#44111d,#210d13)!important}
+@media(min-width:1050px){.workspace{grid-template-columns:minmax(245px,290px) minmax(0,1fr)}}
+@media(max-width:749px){.ownz-brand-header{min-height:108px;padding:12px;gap:9px}.ownz-brand-header::before{width:52%;opacity:.42}.ownz-brand-logo{width:54px;height:54px}.ownz-brand-copy{padding:6px 8px}.ownz-brand-name{font-size:clamp(21px,6vw,30px)}.ownz-brand-studio{font-size:8px;letter-spacing:.7px}.ownz-brand-tagline{font-size:8px;letter-spacing:.5px}.ownz-studio-nav{display:none}main{padding:9px}.panel{box-shadow:0 4px 15px #0009}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}

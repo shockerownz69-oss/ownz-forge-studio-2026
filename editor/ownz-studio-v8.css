@@ -1,0 +1,9 @@
+/* V8 — telemetry accuracy and mission-control visual polish */
+body.ownz-v6 .ownz-v8-mission{border-color:#b92c50;box-shadow:0 0 0 1px #360b1a,inset 0 1px #ff70894a,0 15px 30px #000b;background:radial-gradient(circle at 100% 0,#420d25 0,transparent 48%),linear-gradient(160deg,#170a14,#08080d 75%)}
+body.ownz-v6 .v8-scope{margin:11px 0 0;color:#d2a6b5;font-size:11px;letter-spacing:.45px;border-left:3px solid #f1355d;padding:6px 10px;background:#200d19}
+body.ownz-v6 .ownz-v8-mission .v7-stat{border-color:#89304b;background:linear-gradient(140deg,#30101f,#0b0b13 80%);box-shadow:inset 0 1px #ff647a35,0 3px 10px #0006}
+body.ownz-v6 .ownz-v8-mission .v7-stat::after{content:'';position:absolute;right:7px;top:7px;width:14px;height:2px;background:#f73e62;box-shadow:0 0 9px #f73e62}
+body.ownz-v6 .ownz-v8-mission .v7-stat-value{font-variant-numeric:tabular-nums}
+body.ownz-v6 .ownz-v8-mission .v7-health-row{border-left-color:#fa3a63;background:linear-gradient(90deg,#2a0d1b,#160e18)}
+body.ownz-v6 .ownz-v8-mission .v7-health-row strong{font-variant-numeric:tabular-nums}
+@media(max-width:680px){body.ownz-v6 .ownz-v6-hero{min-height:220px!important;max-height:265px!important}body.ownz-v6 .ownz-v6-hero .ownz-v4-hero-text{padding:10px!important}body.ownz-v6 .ownz-v8-mission{margin-top:7px;padding:12px!important}}

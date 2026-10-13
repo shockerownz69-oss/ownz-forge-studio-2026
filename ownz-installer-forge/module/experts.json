@@ -1,0 +1,7 @@
+{
+ "version": 1,
+ "name": "FatalAcidBurn Expert Registry",
+ "status": "routing metadata; not autonomous experts",
+ "specialties": ["software-architect","frontend-engineer","backend-engineer","api-engineer","database-engineer","javascript-engineer","typescript-engineer","python-engineer","godot-engineer","gdscript-engineer","game-director","gameplay-programmer","systems-designer","level-designer","narrative-designer","economy-designer","ai-gameplay-engineer","mobile-engineer","android-build-engineer","windows-build-engineer","devops-engineer","release-engineer","installer-engineer","test-automation-engineer","qa-analyst","regression-engineer","security-engineer","performance-engineer","accessibility-engineer","ui-designer","ux-researcher","visual-designer","brand-director","motion-designer","sound-designer","technical-artist","asset-pipeline-engineer","data-engineer","prompt-engineer","agent-orchestrator","context-engineer","memory-engineer","code-reviewer","debugger","documentation-engineer","product-manager","project-planner","incident-responder","backup-recovery-engineer","integration-engineer"],
+ "routes": {"installer":["installer-engineer","release-engineer","security-engineer","test-automation-engineer"],"game":["game-director","godot-engineer","gameplay-programmer","qa-analyst"],"website":["frontend-engineer","backend-engineer","ui-designer","accessibility-engineer"],"repair":["debugger","regression-engineer","backup-recovery-engineer","code-reviewer"]}
+}

@@ -1,0 +1,28 @@
+const {authorize}=require('./owner-raw-guard.cjs');
+'use strict';
+const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process');
+const ROOT=path.resolve(__dirname,'..'),PORT=3003,HOST='127.0.0.1';
+const ORIGINS=new Set(['http://127.0.0.1:5173','http://localhost:5173']);
+const history=[];let active=null;let stopActive=()=>{};
+const MAX_BODY=2048,MAX_OUTPUT=300000;
+function send(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data))}
+function parse(req){return new Promise((resolve,reject)=>{let s='';req.on('data',c=>{s+=c;if(s.length>MAX_BODY){reject(Error('Request too large'));req.destroy()}});req.on('end',()=>{try{resolve(JSON.parse(s||'{}'))}catch{reject(Error('Invalid JSON'))}});req.on('error',reject)})}
+function allowed(cmd){const raw=String(cmd||'').trim();if(!raw||raw.length>180||/[\n\r\0;&|`$<>\\]/.test(raw))throw Error('Unsupported command syntax');const parts=raw.match(/(?:"[^"]*"|'[^']*'|[^\s]+)/g)||[];const args=parts.map(s=>s.replace(/^(?:"(.*)"|'(.*)')$/,'$1$2'));
+const [a,b,...rest]=args;
+if(a==='pwd'&&args.length===1)return {command:'pwd',args:[],label:raw};
+if(a==='ls'&&args.length===1)return {command:'ls',args:['-la'],label:raw};
+if(a==='git'&&b==='status'&&args.length===2)return {command:'git',args:['status','--short'],label:raw};
+if(a==='git'&&b==='diff'&&args.length===2)return {command:'git',args:['diff','--stat'],label:raw};
+if(a==='npm'&&['test','run'].includes(b)&&((b==='test'&&args.length===2)||(b==='run'&&rest.length===1&&['build','test'].includes(rest[0]))))return {command:'npm',args:args.slice(1),label:raw};
+if(a==='node'&&b==='--test'&&args.length===2)return {command:'node',args:['--test'],label:raw};
+if(a==='logs'&&args.length===1)return {command:'tail',args:['-n','60',path.join(ROOT,'logs','backend-restart.log')],label:raw};
+throw Error('Command not approved. Try: pwd, ls, git status, git diff, npm test, npm run build, node --test, logs');}
+function cors(req,res){const origin=req.headers.origin;if((req.method==='POST' && !ORIGINS.has(origin))||(origin&&!ORIGINS.has(origin))){send(res,403,{error:'Origin rejected'});return false}if(origin)res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');res.setHeader('Access-Control-Allow-Headers','Content-Type');res.setHeader('Access-Control-Allow-Methods','GET,POST,OPTIONS');res.setHeader('X-Content-Type-Options','nosniff');return true}
+const server=http.createServer(async(req,res)=>{if(!authorize(req,res))return;if(!cors(req,res))return;if(req.method==='OPTIONS'){res.writeHead(204);res.end();return}const url=new URL(req.url,'http://localhost');if(req.method==='GET'&&url.pathname==='/api/terminal-v8/status')return send(res,200,{ready:true,version:'8.0',mode:'approved-command-stream',busy:!!active,root:ROOT,commands:['pwd','ls','git status','git diff','npm test','npm run build','node --test','logs']});if(req.method==='GET'&&url.pathname==='/api/terminal-v8/history')return send(res,200,{history});if(req.method==='POST'&&url.pathname==='/api/terminal-v8/cancel'){if(!active)return send(res,200,{ok:true,active:false});stopActive('User cancellation');return send(res,200,{ok:true,cancelRequested:true})}
+if(req.method==='POST'&&url.pathname==='/api/terminal-v8/run'){
+if(active)return send(res,409,{error:'Another command is running'});let spec;try{spec=allowed((await parse(req)).command)}catch(e){return send(res,400,{error:e.message})}
+res.writeHead(200,{'Content-Type':'application/x-ndjson; charset=utf-8','Cache-Control':'no-cache, no-transform','X-Accel-Buffering':'no'});
+const emit=x=>{if(!res.destroyed)res.write(JSON.stringify(x)+'\n')};emit({type:'start',command:spec.label});
+const child=cp.spawn(spec.command,spec.args,{cwd:ROOT,shell:false,env:{...process.env,PATH:[path.join(ROOT,'node_modules','.bin'),process.env.PATH||''].join(path.delimiter),TERM:'dumb',CI:'1',NO_COLOR:'1'},stdio:['ignore','pipe','pipe'],detached:process.platform!=='win32'});active=child;let output=0,finished=false,stopping=false,killTimer=null;const stop=(reason)=>{if(stopping||finished)return;stopping=true;emit({type:'output',stream:'system',text:'\n'+reason+'; terminating process group.\n'});try{if(process.platform!=='win32'&&child.pid)process.kill(-child.pid,'SIGTERM');else child.kill('SIGTERM')}catch{}killTimer=setTimeout(()=>{if(finished)return;try{if(process.platform!=='win32'&&child.pid)process.kill(-child.pid,'SIGKILL');else child.kill('SIGKILL')}catch{}},3000);killTimer.unref?.()};stopActive=stop;const done=(code,signal,error)=>{if(finished)return;finished=true;active=null;stopActive=()=>{};if(killTimer)clearTimeout(killTimer);history.unshift({command:spec.label,at:new Date().toISOString(),code:code??null,signal:signal||null});history.splice(30);emit({type:'exit',code:code??null,signal:signal||null,error:error||null});res.end()};
+const write=(stream,chunk)=>{if(stopping)return;output+=chunk.length;if(output>MAX_OUTPUT){stop('Output limit reached');return}emit({type:'output',stream,text:chunk.toString('utf8')})};child.stdout.on('data',c=>write('stdout',c));child.stderr.on('data',c=>write('stderr',c));child.on('error',e=>done(null,null,e.message));child.on('close',(code,signal)=>done(code,signal));const timeout=setTimeout(()=>{stop('Time limit reached')},120000);child.on('close',()=>clearTimeout(timeout));res.on('close',()=>{if(!res.writableEnded&&active===child)stop('Client disconnected')});return}
+return send(res,404,{error:'Not found'})});server.listen(PORT,HOST,()=>console.log('OWNZ Terminal Forge v8 listening on '+HOST+':'+PORT));

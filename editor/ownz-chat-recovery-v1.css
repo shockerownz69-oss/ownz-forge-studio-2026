@@ -1,0 +1,7 @@
+#ownz-chat-recovery{margin:10px 0;padding:9px;border:1px solid #713030;border-radius:9px;background:#170d0d;color:#f4d6d6}
+#ownz-chat-recovery .ownz-recovery-actions{display:flex;flex-wrap:wrap;gap:8px}
+#ownz-chat-recovery button{background:#872121;color:white;border:1px solid #b34b4b;border-radius:7px;padding:9px 12px;min-height:40px;font:inherit;font-size:13px}
+#ownz-chat-recovery .ownz-recovery-status{font-size:12px;margin-top:5px;overflow-wrap:anywhere}
+#ownz-chat-recovery .ownz-recovery-list{max-height:260px;overflow:auto;margin-top:9px}
+#ownz-chat-recovery .ownz-recovery-list button{display:block;width:100%;text-align:left;margin:5px 0;overflow-wrap:anywhere}
+#ownz-chat-recovery .ownz-recovery-list[hidden]{display:none}
